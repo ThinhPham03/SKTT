@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../Style.css">
+    <link rel="stylesheet" href="../login-register.css">
+    <link rel="icon" href="../img/logo-gd.png">
+    <script src="../login-register.js"></script>
+    <title>RADS 10-20</title>
+    <script>
+        function ketqua()   {
+            if(check(30) == true)    {
+                var diemChuan = tinhDiem(30);
+                var tinhTrang = "Mức độ trầm cảm: ", deNghi = "*Chú ý: Trắc nghiệm này chỉ có ý nghĩa tham khảo. Gặp các bác sĩ chuyên khoa tâm thần hoặc các cán bộ tâm lý để nhận lời khuyên chính xác nhất.";
+                if(diemChuan>=51) {
+                    tinhTrang += "Nặng"; 
+                }else if(diemChuan>=41){
+                    tinhTrang += "Trung bình";
+                }else if(diemChuan>=31){
+                    tinhTrang += "Nhẹ";
+                }else{
+                    tinhTrang += "Không - Tối thiểu";
+                }
+                updateSoBaiTest();
+                ketLuan(tinhTrang,deNghi);
+                updateLichSuTong(tinhTrang,deNghi);
+                updateTongSoBaiTest();
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div id="header-banner">
+            <h1>Bài đánh giá trầm cảm thanh thiếu niên RADS 10-20</h1>
+    </div>
+
+    <div id="menu">
+        <input type="search" id="search-bar" onblur="this.value =''; this.placeholder = ''" onfocus="placeholder='Nhập nội dung cần tìm'" >
+        <ul>
+            <li>
+                <a href="../../home.html">Trang chủ</a>
+            </li>
+            <li>
+                <a href="./exam_list.html">Bài đánh giá</a>
+                <ul>
+                    <li>
+                        <a href="./dass-21.html">DASS-21</a>
+                    </li>
+                    <li>
+                        <a href="./rads10-20.html">RADS 10-20</a>
+                    </li>
+                    <li>
+                        <a href="./dass-42.html">DASS-42</a>
+                    </li>
+                    <li>
+                        <a href="./phq-9.html">PHQ-9 </a>
+                    </li>
+                    <li>
+                        <a href="./bdi.html">Beck (BDI)</a>
+                    </li>
+                    <li>
+                        <a href="./gad-7.html">GAD-7</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <button id="login-button" onclick="showlogin()">
+            <i class="fas fa-sign-in-alt"></i>
+        </button>
+        <a id="profile-button" href="../profile.html">
+            <i class="fa fa-user"></i>
+        </a>
+        <button id="logout-button" onclick="logout()">
+            <i class="fa fa-sign-out-alt"></i>
+        </button>
+    </div>
+
+    <div id="login">
+        <button id="close" onclick="hidelogin()">
+            <i class="fa fa-times" style="font-size:40px;"></i>
+        </button>
+        <h1>đăng nhập</h1>
+            <form id="login-form" onsubmit="login()">
+                <div class="info">
+                <h2>Tên đăng nhập (Username):</h2>
+                    <input type="text" id="TenDangNhap-l">
+                </div>
+                <div class="info">
+                    <h2>Mật khẩu (Password):</h2>
+                    <input type="password" id="MatKhau-l">
+                </div>
+                <button id="sign-in" type="submit" onclick="kiemtra()">Đăng Nhập</button>
+            </form>
+        <div id="sign-up">
+            Bạn chưa có tài khoản?<a href="#" onclick="open_register()"> Đăng ký</a>
+        </div>
+    </div>
+
+    <div id="register">
+        <button id="close" onclick="hide_register()">
+            <i class="fa fa-times" style="font-size:40px;"></i>
+        </button>
+        <h1>Đăng ký</h1>
+        <form id="register-form" onsubmit="register()">
+            <div id="step1">
+                <div class="info">
+                    <h2>Họ và tên:</h2>
+                    <input type="text" id="HoTen" required>
+                </div>
+                <div class="info">
+                    <h2>Ngày sinh:</h2>
+                    <input type="date" id="NgaySinh" min="1900-01-01" max="2023-06-01" required>   
+                </div>
+                <div class="info">
+                    <h2>Giới tính:</h2> 
+                    <select id="GioiTinh" style="border-radius: 20px; padding: 5px 30px; width: 20%;border: #dddfe2 2px solid; margin: 10px 0px 10px 3%;" required>
+                        <option value="Khác">Khác</option>
+                        <option value="Nam">Nam</option>
+                        <option value="Nữ">Nữ</option>
+                    </select>
+                </div>
+                <div class="info">
+                    <h2>Số điện thoại (tùy chọn): </h2>
+                    <input type="tel" id="SDT" pattern="[0]{1}[0-9]{9}">
+                </div>
+                <div class="info">
+                    <h2>Email (tùy chọn): </h2> 
+                    <input type="email" id="Email">
+                </div>
+                <button class="sign-up" type="button" onclick="nextstep()">Tiếp tục</button>
+            </div>
+
+            <div id="step2">
+                <button id="goback" type="button" onclick="prevstep()">
+                    <i class="fa fa-arrow-left" style="font-size:40px;"></i>
+                </button>
+                <div class="info">
+                    <h2>Tên đăng nhập (Username):</h2>
+                    <input type="text" id="TenDangNhap-r" required>
+                </div>
+                <div class="info">
+                    <h2>Mật khẩu (Password):</h2>
+                    <input type="password" id="MatKhau-r" required>
+                </div>
+                <button class="sign-up" type="submit">Đăng Ký</button>
+            </div>
+        </form>
+        <div id="sign-in">
+            Bạn đã có tài khoản?<a href="#" onclick="showlogin()"> Đăng nhập</a>
+        </div>
+    </div>
+    
+    <div id="gotop">
+        <a href="#"><i class='fa fa-arrow-up'style='font-size:20px; color: white;'></i></a>
+    </div>
+
+    <div id="test-info">
+        <h2>Bài đánh giá trầm cảm thanh thiếu niên RADS 10-20</h2><input type="text" id="BaiTest" value="RADS10-20">
+        <p>
+            Giai đoạn thanh thiếu niên là một giai đoạn nhạy cảm và có nhiều sự thay đổi về mặt cơ thể lẫn tâm - sinh lý, là một trong số những giai đoạn dễ khởi phát trầm cảm.
+        </p> <br>
+        <p>
+            Biểu hiện trầm cảm ở thanh thiếu niên thường có một số điểm khác biệt so với người trưởng thành, nên cần thang đánh giá được thiết kế riêng để phù hợp cho đối tượng này. Và đó là lý do thang đánh giá lo âu GAD-7 ra đời.
+        </p> <br>
+        <p>
+            Thang đánh giá trầsm cảm thanh thiếu niên (Reynolds Adolescent Depression Scale, RADS 10 - 20) là thang tự đánh giá nhằm xác định tình trạng trầm cảm ở thanh thiếu niên do William M. Reynolds xây dựng năm 1986. Thang RADS đã được Việt hóa bởi các bác sỹ tại Viện Sức khỏe tâm thần Quốc gia và đưa vào sử dụng tại viện từ năm 1995.
+        </p> <br>
+        <p>
+            RADS 10-20 là thang tự đánh giá ngắn gọn gồm 30 đề mục để đánh giá mức độ hiện thời của các triệu chứng trầm cảm ở thanh thiếu niên. RADS được sử dụng ở cả trong trường học và các cơ sở lâm sàng, 
+        </p> <br>
+        <p>
+            Đối tượng: Thanh thiếu niên bị rối loạn trầm cảm trong độ tuổi từ 10 đến 20 và chống chỉ định cho Bệnh nhân bị loạn thần.
+        </p>
+        <input type="button" id="test-start" value="Làm bài test online" onclick="hienBaiTest()">
+    </div>
+
+    <form action="" id="test-form" onsubmit="updateLichSu()">
+        <div class="test">
+            <div class="question">
+                1. Tôi cảm thấy hạnh phúc
+            </div>
+            <div class="answer">
+                <label for="1a">
+                    <input type="radio" name="diemcau1" id="1a" value="0">Hầu như không
+                </label>
+            </div>
+            <div class="answer">
+                <label for="1b">
+                    <input type="radio" name="diemcau1" id="1b" value="1">Thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="1c">
+                    <input type="radio" name="diemcau1" id="1c" value="2">Phần lớn thời gian
+                </label>
+            </div>
+            <div class="answer">
+                <label for="1d">
+                    <input type="radio" name="diemcau1" id="1d" value="3" checked>Hầu hết hoặc tất cả thời gian
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                2. Tôi thấy lo lắng về chuyện học
+            </div>
+            <div class="answer">
+                <label for="2a">
+                    <input type="radio" name="diemcau2" id="2a" value="0">Hầu như không
+                </label>
+            </div>
+            <div class="answer">
+                <label for="2b">
+                    <input type="radio" name="diemcau2" id="2b" value="1">Thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="2c">
+                    <input type="radio" name="diemcau2" id="2c" value="2">Phần lớn thời gian
+                </label>
+            </div>
+            <div class="answer">
+                <label for="2d">
+                    <input type="radio" name="diemcau2" id="2d" value="3" checked>Hầu hết hoặc tất cả thời gian
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                3. Tôi cảm thấy cô đơn
+            </div>
+            <div class="answer">
+                <label for="3a">
+                    <input type="radio" name="diemcau3" id="3a" value="0">Hầu như không
+                </label>
+            </div>
+            <div class="answer">
+                <label for="3b">
+                    <input type="radio" name="diemcau3" id="3b" value="1">Thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="3c">
+                    <input type="radio" name="diemcau3" id="3c" value="2">Phần lớn thời gian
+                </label>
+            </div>
+            <div class="answer">
+                <label for="3d">
+                    <input type="radio" name="diemcau3" id="3d" value="3" checked>Hầu hết hoặc tất cả thời gian
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                4. Tôi cảm thấy cha mẹ không thích tôi 
+            </div>
+            <div class="answer">
+                <label for="4a">
+                    <input type="radio" name="diemcau4" id="4a" value="0">Hầu như không
+                </label>
+            </div>
+            <div class="answer">
+                <label for="4b">
+                    <input type="radio" name="diemcau4" id="4b" value="1">Thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="4c">
+                    <input type="radio" name="diemcau4" id="4c" value="2">Phần lớn thời gian
+                </label>
+            </div>
+            <div class="answer">
+                <label for="4d">
+                    <input type="radio" name="diemcau4" id="4d" value="3" checked>Hầu hết hoặc tất cả thời gian
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                5. Tôi thấy mình là người quan trọng 
+            </div>
+            <div class="answer">
+                <label for="5a">
+                    <input type="radio" name="diemcau5" id="5a" value="0">Hầu như không
+                </label>
+            </div>
+            <div class="answer">
+                <label for="5b">
+                    <input type="radio" name="diemcau5" id="5b" value="1">Thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="5c">
+                    <input type="radio" name="diemcau5" id="5c" value="2">Phần lớn thời gian
+                </label>
+            </div>
+            <div class="answer">
+                <label for="5d">
+                    <input type="radio" name="diemcau5" id="5d" value="3" checked>Hầu hết hoặc tất cả thời gian
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                6. Tôi muốn xa lánh, trốn tránh mọi người
+            </div>
+            <div class="answer">
+                <label for="6a">
+                    <input type="radio" name="diemcau6" id="6a" value="0">Hầu như không
+                </label>
+            </div>
+            <div class="answer">
+                <label for="6b">
+                    <input type="radio" name="diemcau6" id="6b" value="1">Thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="6c">
+                    <input type="radio" name="diemcau6" id="6c" value="2">Phần lớn thời gian
+                </label>
+            </div>
+            <div class="answer">
+                <label for="6d">
+                    <input type="radio" name="diemcau6" id="6d" value="3" checked>Hầu hết hoặc tất cả thời gian
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                7. Tôi cảm thấy buồn chán
+            </div>
+            <div class="answer">
+                <label for="7a">
+                    <input type="radio" name="diemcau7" id="7a" value="0">Hầu như không
+                </label>
+            </div>
+            <div class="answer">
+                <label for="7b">
+                    <input type="radio" name="diemcau7" id="7b" value="1">Thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="7c">
+                    <input type="radio" name="diemcau7" id="7c" value="2">Phần lớn thời gian
+                </label>
+            </div>
+            <div class="answer">
+                <label for="7d">
+                    <input type="radio" name="diemcau7" id="7d" value="3" checked>Hầu hết hoặc tất cả thời gian
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                8. Tôi cảm thấy muốn khóc
+            </div>
+            <div class="answer">
+                <label for="8a">
+                    <input type="radio" name="diemcau8" id="8a" value="0">Hầu như không
+                </label>
+            </div>
+            <div class="answer">
+                <label for="8b">
+                    <input type="radio" name="diemcau8" id="8b" value="1">Thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="8c">
+                    <input type="radio" name="diemcau8" id="8c" value="2">Phần lớn thời gian
+                </label>
+            </div>
+            <div class="answer">
+                <label for="8d">
+                    <input type="radio" name="diemcau8" id="8d" value="3" checked>Hầu hết hoặc tất cả thời gian
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                9. Tôi có cảm giác chẳng ai quan tâm đến tôi
+            </div>
+            <div class="answer">
+                <label for="9a">
+                    <input type="radio" name="diemcau9" id="9a" value="0">Hầu như không
+                </label>
+            </div>
+            <div class="answer">
+                <label for="9b">
+                    <input type="radio" name="diemcau9" id="9b" value="1">Thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="9c">
+                    <input type="radio" name="diemcau9" id="9c" value="2">Phần lớn thời gian
+                </label>
+            </div>
+            <div class="answer">
+                <label for="9d">
+                    <input type="radio" name="diemcau9" id="9d" value="3" checked>Hầu hết hoặc tất cả thời gian
+                </label>
+            </div>
+        </div>
+        
+        <div class="test">
+            <div class="question">
+                10. Tôi thích cười đùa với mọi người
+            </div>
+            <div class="answer">
+                <label for="10a">
+                    <input type="radio" name="diemcau10" id="10a" value="0">Hầu như không
+                </label>
+            </div>
+            <div class="answer">
+                <label for="10b">
+                    <input type="radio" name="diemcau10" id="10b" value="1">Thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="10c">
+                    <input type="radio" name="diemcau10" id="10c" value="2">Phần lớn thời gian
+                </label>
+            </div>
+            <div class="answer">
+                <label for="10d">
+                    <input type="radio" name="diemcau10" id="10d" value="3" checked>Hầu hết hoặc tất cả thời gian
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                11. Tôi có cảm giác cơ thể rệu rã, thiếu sinh lực 
+            </div>
+            <div class="answer">
+                <label for="11a">
+                    <input type="radio" name="diemcau11" id="11a" value="0">Hầu như không
+                </label>
+            </div>
+            <div class="answer">
+                <label for="11b">
+                    <input type="radio" name="diemcau11" id="11b" value="1">Thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="11c">
+                    <input type="radio" name="diemcau11" id="11c" value="2">Phần lớn thời gian
+                </label>
+            </div>
+            <div class="answer">
+                <label for="11d">
+                    <input type="radio" name="diemcau11" id="11d" value="3" checked>Hầu hết hoặc tất cả thời gian
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                12. Tôi có cảm giác mình được yêu quý
+            </div>
+            <div class="answer">
+                <label for="12a">
+                    <input type="radio" name="diemcau12" id="12a" value="0">Hầu như không
+                </label>
+            </div>
+            <div class="answer">
+                <label for="12b">
+                    <input type="radio" name="diemcau12" id="12b" value="1">Thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="12c">
+                    <input type="radio" name="diemcau12" id="12c" value="2">Phần lớn thời gian
+                </label>
+            </div>
+            <div class="answer">
+                <label for="12d">
+                    <input type="radio" name="diemcau12" id="12d" value="3" checked>Hầu hết hoặc tất cả thời gian
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                13. Tôi cảm thấy mình giống như kẻ bỏ chạy
+            </div>
+            <div class="answer">
+                <label for="13a">
+                    <input type="radio" name="diemcau13" id="13a" value="0">Hầu như không
+                </label>
+            </div>
+            <div class="answer">
+                <label for="13b">
+                    <input type="radio" name="diemcau13" id="13b" value="1">Thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="13c">
+                    <input type="radio" name="diemcau13" id="13c" value="2">Phần lớn thời gian
+                </label>
+            </div>
+            <div class="answer">
+                <label for="13d">
+                    <input type="radio" name="diemcau13" id="13d" value="3" checked>Hầu hết hoặc tất cả thời gian
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                14. Tôi cảm thấy mình đang tự làm khổ mình 
+            </div>
+            <div class="answer">
+                <label for="14a">
+                    <input type="radio" name="diemcau14" id="14a" value="0">Hầu như không
+                </label>
+            </div>
+            <div class="answer">
+                <label for="14b">
+                    <input type="radio" name="diemcau14" id="14b" value="1">Thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="14c">
+                    <input type="radio" name="diemcau14" id="14c" value="2">Phần lớn thời gian
+                </label>
+            </div>
+            <div class="answer">
+                <label for="14d">
+                    <input type="radio" name="diemcau14" id="14d" value="3" checked>Hầu hết hoặc tất cả thời gian
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                15. Tôi cảm thấy những người khác không thích tôi 
+            </div>
+            <div class="answer">
+                <label for="15a">
+                    <input type="radio" name="diemcau15" id="15a" value="0">Hầu như không
+                </label>
+            </div>
+            <div class="answer">
+                <label for="15b">
+                    <input type="radio" name="diemcau15" id="15b" value="1">Thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="15c">
+                    <input type="radio" name="diemcau15" id="15c" value="2">Phần lớn thời gian
+                </label>
+            </div>
+            <div class="answer">
+                <label for="15d">
+                    <input type="radio" name="diemcau15" id="15d" value="3" checked>Hầu hết hoặc tất cả thời gian
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                16. Tôi cảm thấy bực bội
+            </div>
+            <div class="answer">
+                <label for="16a">
+                    <input type="radio" name="diemcau16" id="16a" value="0">Hầu như không
+                </label>
+            </div>
+            <div class="answer">
+                <label for="16b">
+                    <input type="radio" name="diemcau16" id="16b" value="1">Thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="16c">
+                    <input type="radio" name="diemcau16" id="16c" value="2">Phần lớn thời gian
+                </label>
+            </div>
+            <div class="answer">
+                <label for="16d">
+                    <input type="radio" name="diemcau16" id="16d" value="3" checked>Hầu hết hoặc tất cả thời gian
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                17. Tôi cảm thấy cuộc sống bất công với tôi
+            </div>
+            <div class="answer">
+                <label for="17a">
+                    <input type="radio" name="diemcau17" id="17a" value="0">Hầu như không
+                </label>
+            </div>
+            <div class="answer">
+                <label for="17b">
+                    <input type="radio" name="diemcau17" id="17b" value="1">Thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="17c">
+                    <input type="radio" name="diemcau17" id="17c" value="2">Phần lớn thời gian
+                </label>
+            </div>
+            <div class="answer">
+                <label for="17d">
+                    <input type="radio" name="diemcau17" id="17d" value="3" checked>Hầu hết hoặc tất cả thời gian
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                18. Tôi cảm thấy mệt mỏi
+            </div>
+            <div class="answer">
+                <label for="18a">
+                    <input type="radio" name="diemcau18" id="18a" value="0">Hầu như không
+                </label>
+            </div>
+            <div class="answer">
+                <label for="18b">
+                    <input type="radio" name="diemcau18" id="18b" value="1">Thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="18c">
+                    <input type="radio" name="diemcau18" id="18c" value="2">Phần lớn thời gian
+                </label>
+            </div>
+            <div class="answer">
+                <label for="18d">
+                    <input type="radio" name="diemcau18" id="18d" value="3" checked>Hầu hết hoặc tất cả thời gian
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                19. Tôi cảm thấy mình là một kẻ tồi tệ
+            </div>
+            <div class="answer">
+                <label for="19a">
+                    <input type="radio" name="diemcau19" id="19a" value="0">Hầu như không
+                </label>
+            </div>
+            <div class="answer">
+                <label for="19b">
+                    <input type="radio" name="diemcau19" id="19b" value="1">Thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="19c">
+                    <input type="radio" name="diemcau19" id="19c" value="2">Phần lớn thời gian
+                </label>
+            </div>
+            <div class="answer">
+                <label for="19d">
+                    <input type="radio" name="diemcau19" id="19d" value="3" checked>Hầu hết hoặc tất cả thời gian
+                </label>
+            </div>
+        </div>
+        
+        <div class="test">
+            <div class="question">
+                20. Tôi cảm thấy mình là một kẻ vô tích sự
+            </div>
+            <div class="answer">
+                <label for="20a">
+                    <input type="radio" name="diemcau20" id="20a" value="0">Hầu như không
+                </label>
+            </div>
+            <div class="answer">
+                <label for="20b">
+                    <input type="radio" name="diemcau20" id="20b" value="1">Thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="20c">
+                    <input type="radio" name="diemcau20" id="20c" value="2">Phần lớn thời gian
+                </label>
+            </div>
+            <div class="answer">
+                <label for="20d">
+                    <input type="radio" name="diemcau20" id="20d" value="3" checked>Hầu hết hoặc tất cả thời gian
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                21. Tôi thấy mình là một kẻ đáng thương
+            </div>
+            <div class="answer">
+                <label for="21a">
+                    <input type="radio" name="diemcau21" id="21a" value="0">Hầu như không
+                </label>
+            </div>
+            <div class="answer">
+                <label for="21b">
+                    <input type="radio" name="diemcau21" id="21b" value="1">Thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="21c">
+                    <input type="radio" name="diemcau21" id="21c" value="2">Phần lớn thời gian
+                </label>
+            </div>
+            <div class="answer">
+                <label for="21d">
+                    <input type="radio" name="diemcau21" id="21d" value="3" checked>Hầu hết hoặc tất cả thời gian
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                22. Tôi thấy phát điên lên về mọi thứ
+            </div>
+            <div class="answer">
+                <label for="22a">
+                    <input type="radio" name="diemcau22" id="22a" value="0">Hầu như không
+                </label>
+            </div>
+            <div class="answer">
+                <label for="22b">
+                    <input type="radio" name="diemcau22" id="22b" value="1">Thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="22c">
+                    <input type="radio" name="diemcau22" id="22c" value="2">Phần lớn thời gian
+                </label>
+            </div>
+            <div class="answer">
+                <label for="22d">
+                    <input type="radio" name="diemcau22" id="22d" value="3" checked>Hầu hết hoặc tất cả thời gian
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                23. Tôi thích trò chuyện với mọi người
+            </div>
+            <div class="answer">
+                <label for="23a">
+                    <input type="radio" name="diemcau23" id="23a" value="0">Hầu như không
+                </label>
+            </div>
+            <div class="answer">
+                <label for="23b">
+                    <input type="radio" name="diemcau23" id="23b" value="1">Thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="23c">
+                    <input type="radio" name="diemcau23" id="23c" value="2">Phần lớn thời gian
+                </label>
+            </div>
+            <div class="answer">
+                <label for="23d">
+                    <input type="radio" name="diemcau23" id="23d" value="3" checked>Hầu hết hoặc tất cả thời gian
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                24. Tôi trằn trọc khó ngủ (hoặc Tôi thấy mình ngủ nhiều)
+            </div>
+            <div class="answer">
+                <label for="24a">
+                    <input type="radio" name="diemcau24" id="24a" value="0">Hầu như không
+                </label>
+            </div>
+            <div class="answer">
+                <label for="24b">
+                    <input type="radio" name="diemcau24" id="24b" value="1">Thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="24c">
+                    <input type="radio" name="diemcau24" id="24c" value="2">Phần lớn thời gian
+                </label>
+            </div>
+            <div class="answer">
+                <label for="24d">
+                    <input type="radio" name="diemcau24" id="24d" value="3" checked>Hầu hết hoặc tất cả thời gian
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                25. Tôi thích vui đùa
+            </div>
+            <div class="answer">
+                <label for="25a">
+                    <input type="radio" name="diemcau25" id="25a" value="0">Hầu như không
+                </label>
+            </div>
+            <div class="answer">
+                <label for="25b">
+                    <input type="radio" name="diemcau25" id="25b" value="1">Thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="25c">
+                    <input type="radio" name="diemcau25" id="25c" value="2">Phần lớn thời gian
+                </label>
+            </div>
+            <div class="answer">
+                <label for="25d">
+                    <input type="radio" name="diemcau25" id="25d" value="3" checked>Hầu hết hoặc tất cả thời gian
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                26. Tôi cảm thấy lo lắng
+            </div>
+            <div class="answer">
+                <label for="26a">
+                    <input type="radio" name="diemcau26" id="26a" value="0">Hầu như không
+                </label>
+            </div>
+            <div class="answer">
+                <label for="26b">
+                    <input type="radio" name="diemcau26" id="26b" value="1">Thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="26c">
+                    <input type="radio" name="diemcau26" id="26c" value="2">Phần lớn thời gian
+                </label>
+            </div>
+            <div class="answer">
+                <label for="26d">
+                    <input type="radio" name="diemcau26" id="26d" value="3" checked>Hầu hết hoặc tất cả thời gian
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                27. Tôi có cảm giác như bị đau dạ dày
+            </div>
+            <div class="answer">
+                <label for="27a">
+                    <input type="radio" name="diemcau27" id="27a" value="0">Hầu như không
+                </label>
+            </div>
+            <div class="answer">
+                <label for="27b">
+                    <input type="radio" name="diemcau27" id="27b" value="1">Thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="27c">
+                    <input type="radio" name="diemcau27" id="27c" value="2">Phần lớn thời gian
+                </label>
+            </div>
+            <div class="answer">
+                <label for="27d">
+                    <input type="radio" name="diemcau27" id="27d" value="3" checked>Hầu hết hoặc tất cả thời gian
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                28. Tôi cảm thấy cuộc sống tẻ nhạt, vô vị
+            </div>
+            <div class="answer">
+                <label for="28a">
+                    <input type="radio" name="diemcau28" id="28a" value="0">Hầu như không
+                </label>
+            </div>
+            <div class="answer">
+                <label for="28b">
+                    <input type="radio" name="diemcau28" id="28b" value="1">Thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="28c">
+                    <input type="radio" name="diemcau28" id="28c" value="2">Phần lớn thời gian
+                </label>
+            </div>
+            <div class="answer">
+                <label for="28d">
+                    <input type="radio" name="diemcau28" id="28d" value="3" checked>Hầu hết hoặc tất cả thời gian
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                29. Tôi ăn thấy ngon miệng
+            </div>
+            <div class="answer">
+                <label for="29a">
+                    <input type="radio" name="diemcau29" id="29a" value="0">Hầu như không
+                </label>
+            </div>
+            <div class="answer">
+                <label for="29b">
+                    <input type="radio" name="diemcau29" id="29b" value="1">Thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="29c">
+                    <input type="radio" name="diemcau29" id="29c" value="2">Phần lớn thời gian
+                </label>
+            </div>
+            <div class="answer">
+                <label for="29d">
+                    <input type="radio" name="diemcau29" id="29d" value="3" checked>Hầu hết hoặc tất cả thời gian
+                </label>
+            </div>
+        </div>
+        
+        <div class="test">
+            <div class="question">
+                30. Tôi thất vọng, không muốn làm gì cả
+            </div>
+            <div class="answer">
+                <label for="30a">
+                    <input type="radio" name="diemcau30" id="30a" value="0">Hầu như không
+                </label>
+            </div>
+            <div class="answer">
+                <label for="30b">
+                    <input type="radio" name="diemcau30" id="30b" value="1">Thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="30c">
+                    <input type="radio" name="diemcau30" id="30c" value="2">Phần lớn thời gian
+                </label>
+            </div>
+            <div class="answer">
+                <label for="30d">
+                    <input type="radio" name="diemcau30" id="30d" value="3" checked>Hầu hết hoặc tất cả thời gian
+                </label>
+            </div>
+        </div>
+        
+        <div id="error">
+            <p>Bạn chỉ mới làm </p>
+            <p id="socautraloi"></p> 
+            <p>trên tổng số </p>
+            <p id="socauhoi"></p>
+            <p> câu hỏi!</p>
+        </div>
+
+        <input id="xemKetQua" type="button" onclick="ketqua()" value="Xem kết quả"/>
+    </form>
+
+    <div id="result">
+        <a href="./rads10-20.html"><input type="button" id="back" value="Quay lai trang thông tin"></a>
+        <p id="ID-result"></p>
+        <div id="TinhTrang"></div>
+        <div id="DeNghi"></div>
+    </div>
+
+    <script src="../chucnang.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../Style.css">
+    <link rel="stylesheet" href="../login-register.css">
+    <link rel="icon" href="../img/logo-gd.png">
+    <script src="../login-register.js"></script>
+    <title>GAD-7</title>
+    <script>
+        function ketqua()   {
+            if(check(7) == true)    {
+                var diemChuan = tinhDiem(7);
+                var tinhTrang = "Mức độ lo âu: ", deNghi = "Đề nghị: ";
+                if(diemChuan>=15) {
+                    tinhTrang += "Nặng"; 
+                    deNghi += "Cần gặp bác sĩ chuyên khoa tâm thần để được thăm khám chuyên sâu hơn. Và cần được điều trị tích cực.";
+                }else if(diemChuan>=10){
+                    tinhTrang += "Trung bình";
+                    deNghi +="Cần gặp bác sĩ chuyên khoa tâm thần để được thăm khám chuyên sâu hơn và đưa ra hướng xử trí.";
+                }else if(diemChuan>=5){
+                    tinhTrang += "Nhẹ";
+                    deNghi += "Tiếp tục theo dõi. Có thể thực hiện lại trắc nghiệm GAD-7 trong quá trình theo dõi. Và khám bác sĩ chuyên khoa tâm thần nếu các triệu chứng diễn tiến nặng hơn hoặc kéo dài.";
+                }else{
+                    tinhTrang += "Không - Tối thiểu";
+                    deNghi += "Không có đề xuất kế hoạch điều trị";
+                }
+                updateSoBaiTest();
+                ketLuan(tinhTrang,deNghi);
+                updateLichSuTong(tinhTrang,deNghi);
+                updateTongSoBaiTest();
+            }
+        }
+    </script>
+</head>
+<body>
+        <div id="header-banner">
+                <h1>Bài đánh giá lo âu GAD-7</h1>
+        </div>
+    
+        <div id="menu">
+            <input type="search" id="search-bar" onblur="this.value =''; this.placeholder = ''" onfocus="placeholder='Nhập nội dung cần tìm'" >
+            <ul>
+                <li>
+                    <a href="../../home.html">Trang chủ</a>
+                </li>
+                <li>
+                    <a href="./exam_list.html">Bài đánh giá</a>
+                    <ul>
+                        <li>
+                            <a href="./dass-21.html">DASS-21</a>
+                        </li>
+                        <li>
+                            <a href="./rads10-20.html">RADS 10-20</a>
+                        </li>
+                        <li>
+                            <a href="./dass-42.html">DASS-42</a>
+                        </li>
+                        <li>
+                            <a href="./phq-9.html">PHQ-9 </a>
+                        </li>
+                        <li>
+                            <a href="./bdi.html">Beck (BDI)</a>
+                        </li>
+                        <li>
+                            <a href="./gad-7.html">GAD-7</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <button id="login-button" onclick="showlogin()">
+                <i class="fas fa-sign-in-alt"></i>
+            </button>
+            <a id="profile-button" href="../profile.html">
+                <i class="fa fa-user"></i>
+            </a>
+            <button id="logout-button" onclick="logout()">
+                <i class="fa fa-sign-out-alt"></i>
+            </button>
+        </div>
+    
+        <div id="login">
+            <button id="close" onclick="hidelogin()">
+                <i class="fa fa-times" style="font-size:40px;"></i>
+            </button>
+            <h1>đăng nhập</h1>
+                <form id="login-form" onsubmit="login()">
+                    <div class="info">
+                    <h2>Tên đăng nhập (Username):</h2>
+                        <input type="text" id="TenDangNhap-l">
+                    </div>
+                    <div class="info">
+                        <h2>Mật khẩu (Password):</h2>
+                        <input type="password" id="MatKhau-l">
+                    </div>
+                    <button id="sign-in" type="submit" onclick="kiemtra()">Đăng Nhập</button>
+                </form>
+            <div id="sign-up">
+                Bạn chưa có tài khoản?<a href="#" onclick="open_register()"> Đăng ký</a>
+            </div>
+        </div>
+    
+        <div id="register">
+            <button id="close" onclick="hide_register()">
+                <i class="fa fa-times" style="font-size:40px;"></i>
+            </button>
+            <h1>Đăng ký</h1>
+            <form id="register-form" onsubmit="register()">
+                <div id="step1">
+                    <div class="info">
+                        <h2>Họ và tên:</h2>
+                        <input type="text" id="HoTen" required>
+                    </div>
+                    <div class="info">
+                        <h2>Ngày sinh:</h2>
+                        <input type="date" id="NgaySinh" min="1900-01-01" max="2023-06-01" required>   
+                    </div>
+                    <div class="info">
+                        <h2>Giới tính:</h2> 
+                        <select id="GioiTinh" style="border-radius: 20px; padding: 5px 30px; width: 20%;border: #dddfe2 2px solid; margin: 10px 0px 10px 3%;" required>
+                            <option value="Khác">Khác</option>
+                            <option value="Nam">Nam</option>
+                            <option value="Nữ">Nữ</option>
+                        </select>
+                    </div>
+                    <div class="info">
+                        <h2>Số điện thoại (tùy chọn): </h2>
+                        <input type="tel" id="SDT" pattern="[0]{1}[0-9]{9}">
+                    </div>
+                    <div class="info">
+                        <h2>Email (tùy chọn): </h2> 
+                        <input type="email" id="Email">
+                    </div>
+                    <button class="sign-up" type="button" onclick="nextstep()">Tiếp tục</button>
+                </div>
+    
+                <div id="step2">
+                    <button id="goback" type="button" onclick="prevstep()">
+                        <i class="fa fa-arrow-left" style="font-size:40px;"></i>
+                    </button>
+                    <div class="info">
+                        <h2>Tên đăng nhập (Username):</h2>
+                        <input type="text" id="TenDangNhap-r" required>
+                    </div>
+                    <div class="info">
+                        <h2>Mật khẩu (Password):</h2>
+                        <input type="password" id="MatKhau-r" required>
+                    </div>
+                    <button class="sign-up" type="submit">Đăng Ký</button>
+                </div>
+            </form>
+            <div id="sign-in">
+                Bạn đã có tài khoản?<a href="#" onclick="showlogin()"> Đăng nhập</a>
+            </div>
+        </div>
+        
+        <div id="gotop">
+            <a href="#"><i class='fa fa-arrow-up'style='font-size:20px; color: white;'></i></a>
+        </div>
+
+        <div id="test-info">
+            <h2>Bài đánh giá lo âu GAD-7</h2> <input type="text" id="BaiTest" value="GAD-7">
+            <p>
+                Rối loạn lo âu là một nhóm các rối loạn tâm thần thường gặp, gây nhiều ảnh hưởng đến cuộc sống người bệnh. Phát hiện sớm giúp điều trị có hiệu quả hơn các rối loạn lo âu. Và đó là lý do thang đánh giá lo âu GAD-7 ra đời.
+            </p> <br>
+            <p>
+                GAD-7 (General Anxiety Disorder-7) là thang đánh giá ngắn gọn với 7 câu hỏi, có giá trị trong tầm soát và theo dõi các rối loạn lo âu.
+            </p> <br>
+            <p>
+                Thang đo GAD-7 là thang đánh giá lo âu của Spitzer và cộng sự được Nhóm nghiên cứu của bệnh viện Tâm thần Đà Nẵng dịch, hiệu đính, chuẩn hóa. GAD-7 dựa trên các tiêu chí chẩn đoán được mô tả trong DSM-IV.
+            </p> <br>
+            <p>
+                Đối tượng: Bệnh nhân có rối loạn lo âu Chống chỉ định bệnh nhân loạn thần
+            </p>
+            <input type="button" id="test-start" value="Làm bài test online" onclick="hienBaiTest()">
+        </div>
+
+        <form action="" id="test-form" >
+            <div class="test">
+                <div class="question">
+                    1. Cảm thấy căng thẳng, lo lắng hoặc bất an
+                </div>
+                <div class="answer">
+                    <label for="1a">
+                        <input type="radio" name="diemcau1" id="1a" value="0" checked>Không lần nào cả
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="1b">
+                        <input type="radio" name="diemcau1" id="1b" value="1">Một vài ngày
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="1c">
+                        <input type="radio" name="diemcau1" id="1c" value="2">Nhiều hơn phân nữa số thời gian
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="1d">
+                        <input type="radio" name="diemcau1" id="1d" value="3">Gần như mỗi ngày
+                    </label>
+                </div>
+            </div>
+
+            <div class="test">
+                <div class="question">
+                    2. Không thể ngưng hoặc kiểm soát lo lắng 
+                </div>
+                <div class="answer">
+                    <label for="2a">
+                        <input type="radio" name="diemcau2" id="2a" value="0" checked>Không lần nào cả
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="2b">
+                        <input type="radio" name="diemcau2" id="2b" value="1">Một vài ngày
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="2c">
+                        <input type="radio" name="diemcau2" id="2c" value="2">Nhiều hơn phân nữa số thời gian
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="2d">
+                        <input type="radio" name="diemcau2" id="2d" value="3">Gần như mỗi ngày
+                    </label>
+                </div>
+            </div>
+
+            <div class="test">
+                <div class="question">
+                    3. Lo lắng quá mức về nhiều thứ 
+                </div>
+                <div class="answer">
+                    <label for="3a">
+                        <input type="radio" name="diemcau3" id="3a" value="0" checked>Không lần nào cả
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="3b">
+                        <input type="radio" name="diemcau3" id="3b" value="1">Một vài ngày
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="3c">
+                        <input type="radio" name="diemcau3" id="3c" value="2">Nhiều hơn phân nữa số thời gian
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="3d">
+                        <input type="radio" name="diemcau3" id="3d" value="3">Gần như mỗi ngày
+                    </label>
+                </div>
+            </div>
+
+            <div class="test">
+                <div class="question">
+                    4. Khó thư giãn  
+                </div>
+                <div class="answer">
+                    <label for="4a">
+                        <input type="radio" name="diemcau4" id="4a" value="0" checked>Không lần nào cả
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="4b">
+                        <input type="radio" name="diemcau4" id="4b" value="1">Một vài ngày
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="4c">
+                        <input type="radio" name="diemcau4" id="4c" value="2">Nhiều hơn phân nữa số thời gian
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="4d">
+                        <input type="radio" name="diemcau4" id="4d" value="3">Gần như mỗi ngày
+                    </label>
+                </div>
+            </div>
+
+            <div class="test">
+                <div class="question">
+                    5. Bứt rứt đến mức khó ngồi yên 
+                </div>
+                <div class="answer">
+                    <label for="5a">
+                        <input type="radio" name="diemcau5" id="5a" value="0" checked>Không lần nào cả
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="5b">
+                        <input type="radio" name="diemcau5" id="5b" value="1">Một vài ngày
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="5c">
+                        <input type="radio" name="diemcau5" id="5c" value="2">Nhiều hơn phân nữa số thời gian
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="5d">
+                        <input type="radio" name="diemcau5" id="5d" value="3">Gần như mỗi ngày
+                    </label>
+                </div>
+            </div>
+
+            <div class="test">
+                <div class="question">
+                    6. Trở nên dễ bực bội hoặc cáu kỉnh
+                </div>
+                <div class="answer">
+                    <label for="6a">
+                        <input type="radio" name="diemcau6" id="6a" value="0" checked>Không lần nào cả
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="6b">
+                        <input type="radio" name="diemcau6" id="6b" value="1">Một vài ngày
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="6c">
+                        <input type="radio" name="diemcau6" id="6c" value="2">Nhiều hơn phân nữa số thời gian
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="6d">
+                        <input type="radio" name="diemcau6" id="6d" value="3">Gần như mỗi ngày
+                    </label>
+                </div>
+            </div>
+
+            <div class="test">
+                <div class="question">
+                    7. Cảm thấy lo lắng như thể điều gì khủng khiếp có thể xảy ra
+                </div>
+                <div class="answer">
+                    <label for="7a">
+                        <input type="radio" name="diemcau7" id="7a" value="0" checked>Không lần nào cả
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="7b">
+                        <input type="radio" name="diemcau7" id="7b" value="1">Một vài ngày
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="7c">
+                        <input type="radio" name="diemcau7" id="7c" value="2">Nhiều hơn phân nữa số thời gian
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="7d">
+                        <input type="radio" name="diemcau7" id="7d" value="3">Gần như mỗi ngày
+                    </label>
+                </div>
+            </div>
+
+            <div id="error">
+                <p>Bạn chỉ mới làm </p>
+                <p id="socautraloi"></p> 
+                <p>trên tổng số </p>
+                <p id="socauhoi"></p>
+                <p> câu hỏi!</p>
+            </div>
+   
+            <input id="xemKetQua" type="button" onclick="ketqua()" value="Xem kết quả"/>
+        </form>
+
+        <div id="result">
+            <a href="./gad-7.html"><input type="button" id="back" value="Quay lai trang thông tin"></a>
+            <p id="ID-result"></p>
+            <div id="TinhTrang"></div>
+            <div id="DeNghi"></div>
+        </div>
+        <script src="../chucnang.js"></script>
+</body>
+</html>

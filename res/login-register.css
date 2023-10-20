@@ -1,0 +1,119 @@
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css);
+
+#close{
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    width: 40px;
+    height: 50px;
+    line-height: 30px;
+    border: none;
+    background: none;
+    z-index: 99;
+    cursor: pointer;
+}
+
+#goback{
+    position: fixed;
+    top: 37%;
+    left: 31%;
+    width: 40px;
+    height: 50px;
+    line-height: 30px;
+    border: none;
+    background: none;
+    z-index: 99;
+    cursor: pointer;
+}
+
+#login{
+    width: 40%;
+    background: rgba(235 235 235);
+    height: 36%;
+    position: fixed;
+    border-radius: 50px;
+    top: 35%;
+    left: 30%;
+    display: none;
+    font-size: 30px;
+    border: black solid 1px;
+    z-index: 99;
+}
+
+#register{
+    width: 40%;
+    background: rgba(235 235 235);
+    position: fixed;
+    border-radius: 50px;
+    height: 57%;
+    top: 19%;
+    left: 30%;
+    display: none;
+    font-size: 20px;
+    border: rgb(0, 0, 0) solid 1px;
+    z-index: 99;
+}
+
+#register #step1{
+    display: block;
+}
+
+#register #step2{
+    display: none;
+}
+
+#login-form,
+#register-form{
+    display: block;
+    width: 100%;
+    position: absolute;
+    top: 120px;
+}
+
+#login h1,
+#register h1{
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    position: relative;
+    font-size: 30px;
+    margin-top: 2.5%;
+    text-transform: uppercase;
+    z-index: 90;
+}
+
+#login #sign-in,
+#register .sign-up{
+    font-size: 20px;
+    width: 87%;
+    margin: 20px 5%;
+    padding: 5px;
+    border-radius: 35px;
+    background: #4f9bff;
+}
+
+#login #sign-up,
+#register #sign-in{
+    display: flex;
+    justify-content:center;
+    align-items: center;
+}
+
+.sign-up a{
+    margin: 0px 5px;
+}
+
+.info h2{
+    margin-left: 2%;
+    font-size: 25px;
+    display: inline;
+}
+
+.info input{  
+    height: 30px;
+    width: 90%;
+    margin: 1% 5% 1% 5%;
+    border-radius: 15px;
+    padding-left: 2%;
+    border: #dddfe2 2px solid;
+}

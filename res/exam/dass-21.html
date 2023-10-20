@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../login-register.css">
+    <link rel="icon" href="../img/logo-gd.png">
+    <script src="../login-register.js"></script>
+    <title>DASS-21</title>
+    <script>
+        function ketqua()   {
+            if(check(21) == true)    {
+                var diemChuan = tinhDiem_DASS(21);
+                var tinhTrang = "Mức độ Trầm cảm - Lo âu - Stress: ", deNghi = "Đề nghị: Gặp các bác sĩ chuyên khoa tâm thần hoặc các cán bộ tâm lý để nhận lời khuyên chính xác nhất.";
+                if((diemChuan[0]*2)>= 28) {tinhTrang += "Rất Nặng"; }else if((diemChuan[0]*2)>= 21){tinhTrang += "Nặng";}else if((diemChuan[0]*2)>= 14){tinhTrang += "Trung bình";}else if((diemChuan[0]*2)>= 10){tinhTrang += "Nhẹ";}else{tinhTrang += "Bình Thường";}
+                if((diemChuan[1]*2)>= 20) {tinhTrang += " - Rất Nặng"; }else if((diemChuan[1]*2)>= 15){tinhTrang += " - Nặng";}else if((diemChuan[1]*2)>= 10){tinhTrang += " - Trung bình";}else if((diemChuan[1]*2)>= 8){tinhTrang += " - Nhẹ";}else{tinhTrang += " - Bình Thường";}
+                if((diemChuan[2]*2)>= 34) {tinhTrang += " - Rất Nặng"; }else if((diemChuan[2]*2)>= 26){tinhTrang += " - Nặng";}else if((diemChuan[2]*2)>= 19){tinhTrang += " - Trung bình";}else if((diemChuan[2]*2)>= 15){tinhTrang += " - Nhẹ";}else{tinhTrang += " - Bình Thường";}
+                updateSoBaiTest();
+                ketLuan(tinhTrang,deNghi);
+                updateLichSuTong(tinhTrang,deNghi);
+                updateTongSoBaiTest();
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="header-banner">
+            <h1>Thang đánh giá Trầm cảm - Lo âu - Stress DASS-21</h1>
+    </div>
+
+    <div id="menu">
+        <input type="search" id="search-bar" onblur="this.value =''; this.placeholder = ''" onfocus="placeholder='Nhập nội dung cần tìm'" >
+        <ul>
+            <li>
+                <a href="../../home.html">Trang chủ</a>
+            </li>
+            <li>
+                <a href="./exam_list.html">Bài đánh giá</a>
+                <ul>
+                    <li>
+                        <a href="./dass-21.html">DASS-21</a>
+                    </li>
+                    <li>
+                        <a href="./rads10-20.html">RADS 10-20</a>
+                    </li>
+                    <li>
+                        <a href="./dass-42.html">DASS-42</a>
+                    </li>
+                    <li>
+                        <a href="./phq-9.html">PHQ-9 </a>
+                    </li>
+                    <li>
+                        <a href="./bdi.html">Beck (BDI)</a>
+                    </li>
+                    <li>
+                        <a href="./gad-7.html">GAD-7</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <button id="login-button" onclick="showlogin()">
+            <i class="fas fa-sign-in-alt"></i>
+        </button>
+        <a id="profile-button" href="../profile.html">
+            <i class="fa fa-user"></i>
+        </a>
+        <button id="logout-button" onclick="logout()">
+            <i class="fa fa-sign-out-alt"></i>
+        </button>
+    </div>
+
+    <div id="login">
+        <button id="close" onclick="hidelogin()">
+            <i class="fa fa-times" style="font-size:40px;"></i>
+        </button>
+        <h1>đăng nhập</h1>
+            <form id="login-form" onsubmit="login()">
+                <div class="info">
+                <h2>Tên đăng nhập (Username):</h2>
+                    <input type="text" id="TenDangNhap-l">
+                </div>
+                <div class="info">
+                    <h2>Mật khẩu (Password):</h2>
+                    <input type="password" id="MatKhau-l">
+                </div>
+                <button id="sign-in" type="submit" onclick="kiemtra()">Đăng Nhập</button>
+            </form>
+        <div id="sign-up">
+            Bạn chưa có tài khoản?<a href="#" onclick="open_register()"> Đăng ký</a>
+        </div>
+    </div>
+
+    <div id="register">
+        <button id="close" onclick="hide_register()">
+            <i class="fa fa-times" style="font-size:40px;"></i>
+        </button>
+        <h1>Đăng ký</h1>
+        <form id="register-form" onsubmit="register()">
+            <div id="step1">
+                <div class="info">
+                    <h2>Họ và tên:</h2>
+                    <input type="text" id="HoTen" required>
+                </div>
+                <div class="info">
+                    <h2>Ngày sinh:</h2>
+                    <input type="date" id="NgaySinh" min="1900-01-01" max="2023-06-01" required>   
+                </div>
+                <div class="info">
+                    <h2>Giới tính:</h2> 
+                    <select id="GioiTinh" style="border-radius: 20px; padding: 5px 30px; width: 20%;border: #dddfe2 2px solid; margin: 10px 0px 10px 3%;" required>
+                        <option value="Khác">Khác</option>
+                        <option value="Nam">Nam</option>
+                        <option value="Nữ">Nữ</option>
+                    </select>
+                </div>
+                <div class="info">
+                    <h2>Số điện thoại (tùy chọn): </h2>
+                    <input type="tel" id="SDT" pattern="[0]{1}[0-9]{9}">
+                </div>
+                <div class="info">
+                    <h2>Email (tùy chọn): </h2> 
+                    <input type="email" id="Email">
+                </div>
+                <button class="sign-up" type="button" onclick="nextstep()">Tiếp tục</button>
+            </div>
+
+            <div id="step2">
+                <button id="goback" type="button" onclick="prevstep()">
+                    <i class="fa fa-arrow-left" style="font-size:40px;"></i>
+                </button>
+                <div class="info">
+                    <h2>Tên đăng nhập (Username):</h2>
+                    <input type="text" id="TenDangNhap-r" required>
+                </div>
+                <div class="info">
+                    <h2>Mật khẩu (Password):</h2>
+                    <input type="password" id="MatKhau-r" required>
+                </div>
+                <button class="sign-up" type="submit">Đăng Ký</button>
+            </div>
+        </form>
+        <div id="sign-in">
+            Bạn đã có tài khoản?<a href="#" onclick="showlogin()"> Đăng nhập</a>
+        </div>
+    </div>
+    
+    <div id="gotop">
+        <a href="#menu"><i class='fa fa-arrow-up'style='font-size:20px; color: white;'></i></a>
+    </div>
+
+    <div id="test-info">
+        <h2>Bài đánh giá trầm cảm - lo âu - stress (DASS-21)</h2> <input type="text" id="BaiTest" value="DASS-21">
+        <p>
+            Theo Tổ chức Y tế thế giới (WHO): “Trầm cảm là một rối loạn tâm thần phổ 
+            biến, đặc trưng bởi sự buồn rầu, mất sự thích thú hoặc khoái cảm, cảm giác tội lỗi 
+            hoặc giá trị bản thân thấp, rối loạn giấc ngủ, ăn uống và kém tập trung”
+        </p> <br>
+
+        <p>
+            Và “Lo âu” là từ được dùng để mô tả trạng thái đáp ứng của tâm thần và cơ thể đối với các tình huống gây sợ hãi và đe dọa. 
+            Phản ứng này bao gồm run, khó thở, tim đập nhanh, vã mồ hôi, cảm giác không thực… 
+            Lo âu là phản ứng bình thường của con người khi họ gặp phải các tình huống gây stress.
+        </p> <br>
+
+        <p>
+            Cuối cùng là Stress, Theo định nghĩa của tổ chức Y tế thế giới (WHO), 
+            Stress là sự phản ứng thông qua thể chất, tinh thần, hoặc tình cảm của cơ thể con người với các tác nhân gây ra căng thẳng từ bên ngoài.
+        </p> <br>
+
+        <p>
+            Nguyên nhân gây ra trầm cảm, lo âu và stress cũng giống như các rối loạn tâm thần khác, mặc dù nhiều nghiên cứu đã cung cấp 
+            một số dữ liệu nhưng cho đến nay khoa học vẫn chưa tìm ra được nguyên nhân chính xác gây ra stress, lo âu, trầm cảm.
+        </p> <br>
+
+        <p>
+            Tuy nhiên nhiều nghiên cứu đã chỉ ra được các yếu tố liên quan đến các rối loạn đó. 
+            Bao gồm các yếu tố như:
+            <ul>
+                <li>Đặc điểm cá nhân (tuổi, giới tính, cân nặng, tình trạng bệnh tật, tính cách, ...)</li>
+                <li>Gia đình (di truyền, mối quan hệ giữa các thành viên, ...)</li>
+                <li>Môi trường xã hội</li>
+                <li>Nơi làm việc (văn hoá tổ chức, môi trường làm việc, ...)</li>
+                <li>Môi trường tự nhiên</li>
+            </ul>
+        </p> <br>
+
+        <p>
+            Năm 1997, Lovibond S.H và Lovibond P.F tại khoa tâm lý học Đại học New South Wales, Australia đã xây dựng nên thang đo đánh giá stress, lo âu và trầm cảm 
+        kí hiệu là DASS-21. Thang đo DASS 21 (Depression Anxiety Stress Scale 21) là bộ công cụ tự điền gồm 21 tiểu mục chia thành 3 phần, tương ứng với mỗi phần là 7 tiểu mục.
+        </p> <br>
+        <p>
+            Đối tượng: Bệnh nhân có những than phiền về cơ thể, buồn chán, mệt mỏi không rõ nguyên nhân, lo âu, ám ảnh sợ, rối loạn stress sau sang chấn...
+        </p>
+        <input type="button" id="test-start" value="Làm bài test online" onclick="hienBaiTest()">
+    </div>
+
+    <form action="" id="test-form" >
+        <div class="test">
+            <div class="question">
+                1. Tôi thấy khó mà thoải mái được
+            </div>
+            <div class="answer">
+                <label for="S-1a">
+                    <input type="radio" name="diemcau1" id="S-1a" value="0">Điều nầy hoàn toàn không xảy ra với Tôi
+                </label>
+            </div>
+            <div class="answer">
+                <label for="S-1b">
+                    <input type="radio" name="diemcau1" id="S-1b" value="1">Xảy ra với Tôi một phần nào, hay thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="S-1c">
+                    <input type="radio" name="diemcau1" id="S-1c" value="2" checked>Thường xảy ra với Tôi, hay nhiều lần
+                </label>
+            </div>
+            <div class="answer">
+                <label for="S-1d">
+                    <input type="radio" name="diemcau1" id="S-1d" value="3">Rất thường xảy ra, hay hầu hết lúc nào cũng có
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                2. Tôi thấy mình bị khô miệng 
+            </div>
+            <div class="answer">
+                <label for="A-2a">
+                    <input type="radio" name="diemcau2" id="A-2a" value="0">Điều nầy hoàn toàn không xảy ra với Tôi
+                </label>
+            </div>
+            <div class="answer">
+                <label for="A-2b">
+                    <input type="radio" name="diemcau2" id="A-2b" value="1">Xảy ra với Tôi một phần nào, hay thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="A-2c">
+                    <input type="radio" name="diemcau2" id="A-2c" value="2" checked>Thường xảy ra với Tôi, hay nhiều lần
+                </label>
+            </div>
+            <div class="answer">
+                <label for="A-2d">
+                    <input type="radio" name="diemcau2" id="A-2d" value="3">Rất thường xảy ra, hay hầu hết lúc nào cũng có
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                3. Tôi không thấy có một cảm giác lạc quan nào cả
+            </div>
+            <div class="answer">
+                <label for="D-3a">
+                    <input type="radio" name="diemcau3" id="D-3a" value="0">Điều nầy hoàn toàn không xảy ra với Tôi
+                </label>
+            </div>
+            <div class="answer">
+                <label for="D-3b">
+                    <input type="radio" name="diemcau3" id="D-3b" value="1">Xảy ra với Tôi một phần nào, hay thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="D-3c">
+                    <input type="radio" name="diemcau3" id="D-3c" value="2" checked>Thường xảy ra với Tôi, hay nhiều lần
+                </label>
+            </div>
+            <div class="answer">
+                <label for="D-3d">
+                    <input type="radio" name="diemcau3" id="D-3d" value="3">Rất thường xảy ra, hay hầu hết lúc nào cũng có
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                4. Tôi bị khó thở (thở nhanh, khó thở mà không do làm việc mệt)
+            </div>
+            <div class="answer">
+                <label for="A-4a">
+                    <input type="radio" name="diemcau4" id="A-4a" value="0">Điều nầy hoàn toàn không xảy ra với Tôi
+                </label>
+            </div>
+            <div class="answer">
+                <label for="A-4b">
+                    <input type="radio" name="diemcau4" id="A-4b" value="1">Xảy ra với Tôi một phần nào, hay thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="A-4c">
+                    <input type="radio" name="diemcau4" id="A-4c" value="2" checked>Thường xảy ra với Tôi, hay nhiều lần
+                </label>
+            </div>
+            <div class="answer">
+                <label for="A-4d">
+                    <input type="radio" name="diemcau4" id="A-4d" value="3">Rất thường xảy ra, hay hầu hết lúc nào cũng có
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                5. Tôi thấy khó mà bắt tay vào làm công việc 
+            </div>
+            <div class="answer">
+                <label for="D-  5a">
+                    <input type="radio" name="diemcau5" id="D-5a" value="0">Điều nầy hoàn toàn không xảy ra với Tôi
+                </label>
+            </div>
+            <div class="answer">
+                <label for="D-5b">
+                    <input type="radio" name="diemcau5" id="D-5b" value="1">Xảy ra với Tôi một phần nào, hay thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="D-5c">
+                    <input type="radio" name="diemcau5" id="D-5c" value="2" checked>Thường xảy ra với Tôi, hay nhiều lần
+                </label>
+            </div>
+            <div class="answer">
+                <label for="D-5d">
+                    <input type="radio" name="diemcau5" id="D-5d" value="3">Rất thường xảy ra, hay hầu hết lúc nào cũng có
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                6. Tôi đã phản ứng cách quá lố khi có những sự việc xảy ra 
+            </div>
+            <div class="answer">
+                <label for="S-6a">
+                    <input type="radio" name="diemcau6" id="S-6a" value="0">Điều nầy hoàn toàn không xảy ra với Tôi
+                </label>
+            </div>
+            <div class="answer">
+                <label for="S-6b">
+                    <input type="radio" name="diemcau6" id="S-6b" value="1">Xảy ra với Tôi một phần nào, hay thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="S-6c">
+                    <input type="radio" name="diemcau6" id="S-6c" value="2" checked>Thường xảy ra với Tôi, hay nhiều lần
+                </label>
+            </div>
+            <div class="answer">
+                <label for="S-6d">
+                    <input type="radio" name="diemcau6" id="S-6d" value="3">Rất thường xảy ra, hay hầu hết lúc nào cũng có
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                7. Tay tôi bị run
+            </div>
+            <div class="answer">
+                <label for="A-7a">
+                    <input type="radio" name="diemcau7" id="A-7a" value="0">Điều nầy hoàn toàn không xảy ra với Tôi
+                </label>
+            </div>
+            <div class="answer">
+                <label for="A-7b">
+                    <input type="radio" name="diemcau7" id="A-7b" value="1">Xảy ra với Tôi một phần nào, hay thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="A-7c">
+                    <input type="radio" name="diemcau7" id="A-7c" value="2" checked>Thường xảy ra với Tôi, hay nhiều lần
+                </label>
+            </div>
+            <div class="answer">
+                <label for="A-7d">
+                    <input type="radio" name="diemcau7" id="A-7d" value="3">Rất thường xảy ra, hay hầu hết lúc nào cũng có
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                8. Tôi thấy mình đã dùng quá nhiều năng lực vào việc lo lắng
+            </div>
+            <div class="answer">
+                <label for="S-8a">
+                    <input type="radio" name="diemcau8" id="S-8a" value="0">Điều nầy hoàn toàn không xảy ra với Tôi
+                </label>
+            </div>
+            <div class="answer">
+                <label for="S-8b">
+                    <input type="radio" name="diemcau8" id="S-8b" value="1">Xảy ra với Tôi một phần nào, hay thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="S-8c">
+                    <input type="radio" name="diemcau8" id="S-8c" value="2" checked>Thường xảy ra với Tôi, hay nhiều lần
+                </label>
+            </div>
+            <div class="answer">
+                <label for="S-8d">
+                    <input type="radio" name="diemcau8" id="S-8d" value="3">Rất thường xảy ra, hay hầu hết lúc nào cũng có
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                9. Tôi lo mình đến những nơi mà tôi có thể bị hốt hoảng và tự làm mất mặt
+            </div>
+            <div class="answer">
+                <label for="A-9a">
+                    <input type="radio" name="diemcau9" id="A-9a" value="0">Điều nầy hoàn toàn không xảy ra với Tôi
+                </label>
+            </div>
+            <div class="answer">
+                <label for="A-9b">
+                    <input type="radio" name="diemcau9" id="A-9b" value="1">Xảy ra với Tôi một phần nào, hay thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="A-9c">
+                    <input type="radio" name="diemcau9" id="A-9c" value="2" checked>Thường xảy ra với Tôi, hay nhiều lần
+                </label>
+            </div>
+            <div class="answer">
+                <label for="A-9d">
+                    <input type="radio" name="diemcau9" id="A-9d" value="3">Rất thường xảy ra, hay hầu hết lúc nào cũng có
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                10. Tôi thấy tương lai mình chả có gì để mong chờ cả
+            </div>
+            <div class="answer">
+                <label for="D-10a">
+                    <input type="radio" name="diemcau10" id="D-10a" value="0">Điều nầy hoàn toàn không xảy ra với Tôi
+                </label>
+            </div>
+            <div class="answer">
+                <label for="D-10b">
+                    <input type="radio" name="diemcau10" id="D-10b" value="1">Xảy ra với Tôi một phần nào, hay thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="D-10c">
+                    <input type="radio" name="diemcau10" id="D-10c" value="2" checked>Thường xảy ra với Tôi, hay nhiều lần
+                </label>
+            </div>
+            <div class="answer">
+                <label for="D-10d">
+                    <input type="radio" name="diemcau10" id="D-10d" value="3">Rất thường xảy ra, hay hầu hết lúc nào cũng có
+                </label>
+            </div>
+        </div>
+
+         <div class="test">
+            <div class="question">
+                11. Tôi thấy bồn chồn
+            </div>
+            <div class="answer">
+                <label for="S-11a">
+                    <input type="radio" name="diemcau11" id="S-11a" value="0">Điều nầy hoàn toàn không xảy ra với Tôi
+                </label>
+            </div>
+            <div class="answer">
+                <label for="S-11b">
+                    <input type="radio" name="diemcau11" id="S-11b" value="1">Xảy ra cho tôi một phần nào, hay thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="S-11c">
+                    <input type="radio" name="diemcau11" id="S-11c" value="2" checked>Thường xảy ra với Tôi, hay nhiều lần
+                </label>
+            </div>
+            <div class="answer">
+                <label for="S-11d">
+                    <input type="radio" name="diemcau11" id="S-11d" value="3">Rất thường xảy ra, hay hầu hết lúc nào cũng có
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                12. Tôi thấy khó mà thư giãn
+            </div>
+            <div class="answer">
+                <label for="S-12a">
+                    <input type="radio" name="diemcau12" id="S-12a" value="0">Điều nầy hoàn toàn không xảy ra với Tôi
+                </label>
+            </div>
+            <div class="answer">
+                <label for="S-12b">
+                    <input type="radio" name="diemcau12" id="S-12b" value="1">Xảy ra cho tôi một phần nào, hay thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="S-12c">
+                    <input type="radio" name="diemcau12" id="S-12c" value="2" checked>Thường xảy ra với Tôi, hay nhiều lần
+                </label>
+            </div>
+            <div class="answer">
+                <label for="S-12d">
+                    <input type="radio" name="diemcau12" id="S-12d" value="3">Rất thường xảy ra, hay hầu hết lúc nào cũng có
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                13. Tôi thấy mình xuống tinh thần và buồn rầu
+            </div>
+            <div class="answer">
+                <label for="D-13a">
+                    <input type="radio" name="diemcau13" id="D-13a" value="0">Điều nầy hoàn toàn không xảy ra với Tôi
+                </label>
+            </div>
+            <div class="answer">
+                <label for="D-13b">
+                    <input type="radio" name="diemcau13" id="D-13b" value="1">Xảy ra cho tôi một phần nào, hay thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="D-13c">
+                    <input type="radio" name="diemcau13" id="D-13c" value="2" checked>Thường xảy ra với Tôi, hay nhiều lần
+                </label>
+            </div>
+            <div class="answer">
+                <label for="D-13d">
+                    <input type="radio" name="diemcau13" id="D-13d" value="3">Rất thường xảy ra, hay hầu hết lúc nào cũng có
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                14. Tôi thấy thiếu kiên nhẫn với những điều cản trở việc tôi đang làm
+            </div>
+            <div class="answer">
+                <label for="S-14a">
+                    <input type="radio" name="diemcau14" id="S-14a" value="0">Điều nầy hoàn toàn không xảy ra với Tôi
+                </label>
+            </div>
+            <div class="answer">
+                <label for="S-14b">
+                    <input type="radio" name="diemcau14" id="S-14b" value="1">Xảy ra cho tôi một phần nào, hay thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="S-14c">
+                    <input type="radio" name="diemcau14" id="S-14c" value="2" checked>Thường xảy ra với Tôi, hay nhiều lần
+                </label>
+            </div>
+            <div class="answer">
+                <label for="S-14d">
+                    <input type="radio" name="diemcau14" id="S-14d" value="3">Rất thường xảy ra, hay hầu hết lúc nào cũng có
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                15. Tôi thấy mình gần như bị hốt hoảng
+            </div>
+            <div class="answer">
+                <label for="A-15a">
+                    <input type="radio" name="diemcau15" id="A-15a" value="0">Điều nầy hoàn toàn không xảy ra với Tôi
+                </label>
+            </div>
+            <div class="answer">
+                <label for="A-15b">
+                    <input type="radio" name="diemcau15" id="A-15b" value="1">Xảy ra cho tôi một phần nào, hay thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="A-15c">
+                    <input type="radio" name="diemcau15" id="A-15c" value="2" checked>Thường xảy ra với Tôi, hay nhiều lần
+                </label>
+            </div>
+            <div class="answer">
+                <label for="A-15d">
+                    <input type="radio" name="diemcau15" id="A-15d" value="3">Rất thường xảy ra, hay hầu hết lúc nào cũng có
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                16. Tôi không thấy hăng hái để làm bất cứ chuyện gì
+            </div>
+            <div class="answer">
+                <label for="D-16a">
+                    <input type="radio" name="diemcau16" id="D-16a" value="0">Điều nầy hoàn toàn không xảy ra với Tôi
+                </label>
+            </div>
+            <div class="answer">
+                <label for="D-16b">
+                    <input type="radio" name="diemcau16" id="D-16b" value="1">Xảy ra cho tôi một phần nào, hay thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="D-16c">
+                    <input type="radio" name="diemcau16" id="D-16c" value="2" checked>Thường xảy ra với Tôi, hay nhiều lần
+                </label>
+            </div>
+            <div class="answer">
+                <label for="D-16d">
+                    <input type="radio" name="diemcau16" id="D-16d" value="3">Rất thường xảy ra, hay hầu hết lúc nào cũng có
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                17. Tôi thấy mình là người kém giá trị
+            </div>
+            <div class="answer">
+                <label for="D-17a">
+                    <input type="radio" name="diemcau17" id="D-17a" value="0">Điều nầy hoàn toàn không xảy ra với Tôi
+                </label>
+            </div>
+            <div class="answer">
+                <label for="D-17b">
+                    <input type="radio" name="diemcau17" id="D-17b" value="1">Xảy ra cho tôi một phần nào, hay thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="D-17c">
+                    <input type="radio" name="diemcau17" id="D-17c" value="2" checked>Thường xảy ra với Tôi, hay nhiều lần
+                </label>
+            </div>
+            <div class="answer">
+                <label for="D-17d">
+                    <input type="radio" name="diemcau17" id="D-17d" value="3">Rất thường xảy ra, hay hầu hết lúc nào cũng có
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                18. Tôi thấy mình rất dễ nhạy cảm
+            </div>
+            <div class="answer">
+                <label for="S-18a">
+                    <input type="radio" name="diemcau18" id="S-18a" value="0">Điều nầy hoàn toàn không xảy ra với Tôi
+                </label>
+            </div>
+            <div class="answer">
+                <label for="S-18b">
+                    <input type="radio" name="diemcau18" id="S-18b" value="1">Xảy ra cho tôi một phần nào, hay thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="S-18c">
+                    <input type="radio" name="diemcau18" id="S-18c" value="2" checked>Thường xảy ra với Tôi, hay nhiều lần
+                </label>
+            </div>
+            <div class="answer">
+                <label for="S-18d">
+                    <input type="radio" name="diemcau18" id="S-18d" value="3">Rất thường xảy ra, hay hầu hết lúc nào cũng có
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                19. Tôi thấy tim mình đập nhanh, đập hụt nhịp mà không do làm việc mệt
+            </div>
+            <div class="answer">
+                <label for="A-19a">
+                    <input type="radio" name="diemcau19" id="A-19a" value="0">Điều nầy hoàn toàn không xảy ra với Tôi
+                </label>
+            </div>
+            <div class="answer">
+                <label for="A-19b">
+                    <input type="radio" name="diemcau19" id="A-19b" value="1">Xảy ra cho tôi một phần nào, hay thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="A-19c">
+                    <input type="radio" name="diemcau19" id="A-19c" value="2" checked>Thường xảy ra với Tôi, hay nhiều lần
+                </label>
+            </div>
+            <div class="answer">
+                <label for="A-19d">
+                    <input type="radio" name="diemcau19" id="A-19d" value="3">Rất thường xảy ra, hay hầu hết lúc nào cũng có
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                20. Tôi cảm thấy sợ vô cớ
+            </div>
+            <div class="answer">
+                <label for="A-20a">
+                    <input type="radio" name="diemcau20" id="A-20a" value="0">Điều nầy hoàn toàn không xảy ra với Tôi
+                </label>
+            </div>
+            <div class="answer">
+                <label for="A-20b">
+                    <input type="radio" name="diemcau20" id="A-20b" value="1">Xảy ra cho tôi một phần nào, hay thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="A-20c">
+                    <input type="radio" name="diemcau20" id="A-20c" value="2" checked>Thường xảy ra với Tôi, hay nhiều lần
+                </label>
+            </div>
+            <div class="answer">
+                <label for="A-20d">
+                    <input type="radio" name="diemcau20" id="A-20d" value="3">Rất thường xảy ra, hay hầu hết lúc nào cũng có
+                </label>
+            </div>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                21. Tôi cảm thấy cuộc sống mình không có ý nghĩa
+            </div>
+            <div class="answer">
+                <label for="D-21a">
+                    <input type="radio" name="diemcau21" id="D-21a" value="0">Điều nầy hoàn toàn không xảy ra với Tôi
+                </label>
+            </div>
+            <div class="answer">
+                <label for="D-21b">
+                    <input type="radio" name="diemcau21" id="D-21b" value="1">Xảy ra cho tôi một phần nào, hay thỉnh thoảng
+                </label>
+            </div>
+            <div class="answer">
+                <label for="D-21c">
+                    <input type="radio" name="diemcau21" id="D-21c" value="2" checked>Thường xảy ra với Tôi, hay nhiều lần
+                </label>
+            </div>
+            <div class="answer">
+                <label for="D-21d">
+                    <input type="radio" name="diemcau21" id="D-21d" value="3">Rất thường xảy ra, hay hầu hết lúc nào cũng có
+                </label>
+            </div>
+        </div>
+
+        <div id="error">
+            <p>Bạn chỉ mới làm </p>
+            <p id="socautraloi"></p> 
+            <p>trên tổng số </p>
+            <p id="socauhoi"></p>
+            <p> câu hỏi!</p>
+        </div>
+
+        <input id="xemKetQua" type="button" onclick="ketqua()" value="Xem kết quả"/>
+    </form>
+
+    <div id="result">
+        <a href="./dass-21.html"><input type="button" id="back" value="Quay lai trang thông tin"></a>
+        <p id="ID-result"></p>
+        <div id="TinhTrang"></div>
+        <div id="DeNghi"></div>
+    </div>
+    <script src="../chucnang.js"></script>
+</body>
+</html>

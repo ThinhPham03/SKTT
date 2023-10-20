@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./login-register.css">
+    <link rel="stylesheet" href="./profile.css">
+    <link rel="icon" href="./img/logo-gd.png">
+    <script src="./login-register.js"></script>
+    <title>Trang cá nhân</title>
+</head>
+
+<body>
+    <div id="header-banner">
+        <img src="./img/logo.png" alt="">
+        <H1 id="rs-logo">Sức khỏe tâm thần</H1>
+    </div>
+
+    <div id="menu">
+        <input type="search" id="search-bar" onblur="this.value =''; this.placeholder = ''" onfocus="placeholder='Nhập nội dung cần tìm'" >
+        <ul>
+            <li>
+                <a href="../home.html">Trang chủ</a>
+            </li>
+            <li>
+                <a href="./exam/exam_list.html">Bài đánh giá</a>
+                <ul>
+                    <li>
+                        <a href="./exam/dass-21.html">DASS-21</a>
+                    </li>
+                    <li>
+                        <a href="./exam/rads10-20.html">RADS 10-20</a>
+                    </li>
+                    <li>
+                        <a href="./exam/dass-42.html">DASS-42</a>
+                    </li>
+                    <li>
+                        <a href="./exam/phq-9.html">PHQ-9 </a>
+                    </li>
+                    <li>
+                        <a href="./exam/bdi.html">Beck (BDI)</a>
+                    </li>
+                    <li>
+                        <a href="./exam/gad-7.html">GAD-7</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <button id="login-button" onclick="showlogin()">
+            <i class="fas fa-sign-in-alt"></i>
+        </button>
+        <a id="profile-button" href="./profile.html">
+            <i class="fa fa-user"></i>
+        </a>
+        <button id="logout-button" onclick="logout()">
+            <i class="fa fa-sign-out-alt"></i>
+        </button>
+    </div>
+
+    <div id="login">
+        <button id="close" onclick="hidelogin()">
+            <i class="fa fa-times" style="font-size:40px;"></i>
+        </button>
+        <h1>đăng nhập</h1>
+            <form id="login-form" onsubmit="login()">
+                <div class="info">
+                <h2>Tên đăng nhập (Username):</h2>
+                    <input type="text" id="TenDangNhap-l">
+                </div>
+                <div class="info">
+                    <h2>Mật khẩu (Password):</h2>
+                    <input type="password" id="MatKhau-l">
+                </div>
+                <button id="sign-in" type="submit" onclick="kiemtra()">Đăng Nhập</button>
+            </form>
+        <div id="sign-up">
+            Bạn chưa có tài khoản?<a href="#" onclick="open_register()"> Đăng ký</a>
+        </div>
+    </div>
+
+    <div id="register">
+        <button id="close" onclick="hide_register()">
+            <i class="fa fa-times" style="font-size:40px;"></i>
+        </button>
+        <h1>Đăng ký</h1>
+        <form id="register-form" onsubmit="register()">
+            <div id="step1">
+                <div class="info">
+                    <h2>Họ và tên:</h2>
+                    <input type="text" id="HoTen" required>
+                </div>
+                <div class="info">
+                    <h2>Ngày sinh:</h2>
+                    <input type="date" id="NgaySinh" min="1900-01-01" max="2023-06-01" required>   
+                </div>
+                <div class="info">
+                    <h2>Giới tính:</h2> 
+                    <select id="GioiTinh" style="border-radius: 20px; padding: 5px 30px; width: 20%;border: #dddfe2 2px solid; margin: 10px 0px 10px 3%;" required>
+                        <option value="Khác">Khác</option>
+                        <option value="Nam">Nam</option>
+                        <option value="Nữ">Nữ</option>
+                    </select>
+                </div>
+                <div class="info">
+                    <h2>Số điện thoại (tùy chọn): </h2>
+                    <input type="tel" id="SDT" pattern="[0]{1}[0-9]{9}">
+                </div>
+                <div class="info">
+                    <h2>Email (tùy chọn): </h2> 
+                    <input type="email" id="Email">
+                </div>
+                <button class="sign-up" type="button" onclick="nextstep()">Tiếp tục</button>
+            </div>
+
+            <div id="step2">
+                <button id="goback" type="button" onclick="prevstep()">
+                    <i class="fa fa-arrow-left" style="font-size:40px;"></i>
+                </button>
+                <div class="info">
+                    <h2>Tên đăng nhập (Username):</h2>
+                    <input type="text" id="TenDangNhap-r" required>
+                </div>
+                <div class="info">
+                    <h2>Mật khẩu (Password):</h2>
+                    <input type="password" id="MatKhau-r" required>
+                </div>
+                <button class="sign-up" type="submit">Đăng Ký</button>
+            </div>
+        </form>
+        <div id="sign-in">
+            Bạn đã có tài khoản?<a href="#" onclick="showlogin()"> Đăng nhập</a>
+        </div>
+    </div>
+    
+    <div id="gotop">
+        <a href="#"><i class='fa fa-arrow-up'style='font-size:20px; color: white;'></i></a>
+    </div>
+
+    <div id="wrapper">
+        <div id="header">
+            <h1>Thông tin tài khoản</h1>
+            <input type="button" style="display: block;" id="showInfo" onclick="showInfo()" value="Hiện thông tin cá nhân">
+            <input type="button" style="display: none;" id="hideInfo" onclick="hideInfo()" value="Ẩn thông tin cá nhân">
+        </div>
+        <div id="profile">
+            <div id="editProfile">
+                <button id="edit-close" onclick="hide_editProfile()">
+                    <i class="fa fa-times" style="font-size:40px;"></i>
+                </button>
+                <h1>Chỉnh sửa thông tin cá nhân</h1>
+                <form id="editProfile-form" onsubmit="editProfile()">
+                    <div id="edit-step1">
+                        <div class="info">
+                            <h2>Họ và tên:</h2>
+                            <input type="text" id="new-HoTen">
+                        </div>
+                        <div class="info">
+                            <h2>Ngày sinh:</h2>
+                            <input type="date" id="new-NgaySinh" min="1900-01-01" max="2023-06-01">   
+                        </div>
+                        <div class="info">
+                            <h2>Giới tính:</h2> 
+                            <select id="new-GioiTinh" style="border-radius: 20px; padding: 5px 30px; width: 20%;border: #dddfe2 2px solid; margin: 10px 0px 10px 3%;" required>
+                                <option value="Khác">Khác</option>
+                                <option value="Nam">Nam</option>
+                                <option value="Nữ">Nữ</option>
+                            </select>
+                        </div>
+                        <div class="info">
+                            <h2>Số điện thoại: </h2>
+                            <input type="tel" id="new-SDT" pattern="[0]{1}[0-9]{9}">
+                        </div>
+                        <div class="info">
+                            <h2>Email: </h2> 
+                            <input type="email" id="new-Email">
+                        </div>
+                        <button class="edit-Profile" type="button" onclick="nextstep_editProfile()">Tiếp tục</button>
+                    </div>
+        
+                    <div id="edit-step2">
+                        <button id="edit-goback" type="button" onclick="prevstep_editProfile()">
+                            <i class="fa fa-arrow-left" style="font-size:40px;"></i>
+                        </button>
+                        <input type="test" id="current-TenDangNhap" style="display: none;">
+                        <div class="info">
+                            <h2>Tên đăng nhập (Username):</h2><h2 id="display-TenDangNhap"></h2>
+                        </div>
+                        <div class="info">
+                            <h2>Mật khẩu (Password):</h2>
+                            <input type="password" id="new-MatKhau" required>
+                        </div>
+                        <button class="edit-Profile" type="submit">Chỉnh sửa</button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="editBacSi">
+                <button id="edit-close" onclick="hide_editProfile()">
+                    <i class="fa fa-times" style="font-size:40px;"></i>
+                </button>
+                <h1>Chỉnh sửa thông tin cá nhân</h1>
+                <form id="editBS-form" onsubmit="editProfile()">
+                    <div id="editBS-step1">
+                        <div class="info">
+                            <h2>Họ và tên:</h2>
+                            <input type="text" id="new-HoTenbs">
+                        </div>
+                        <div class="info">
+                            <h2>Mã số nhân viên:</h2>
+                            <input type="text" id="new-MaNV" >   
+                        </div>
+                        <div class="info">
+                            <h2>Số điện thoại: </h2>
+                            <input type="tel" id="new-SDTbs" pattern="[0]{1}[0-9]{9}">
+                        </div>
+                        <div class="info">
+                            <h2>Chức vụ:</h2> 
+                            <select id="new-ChucVu" style="border-radius: 20px; padding: 5px 30px; width: 50%;border: #dddfe2 2px solid; margin: 10px 0px 10px 3%; text-align: center;" required>
+                                <option value="">-----Chọn-----</option>
+                                <option value="Bác sĩ lâm sàng">Bác sĩ lâm sàng</option>
+                                <option value="Bác sĩ chuẩn đoán">Bác sĩ chuẩn đoán</option>
+                                <option value="Bác sĩ trị liệu">Bác sĩ trị liệu</option>
+                            </select>
+                        </div>
+                        <button class="edit-BacSi" type="button" onclick="nextstep_editProfile()">Tiếp tục</button>
+                    </div>
+        
+                    <div id="editBS-step2">
+                        <button id="editBS-goback" type="button" onclick="prevstep_editProfile()">
+                            <i class="fa fa-arrow-left" style="font-size:40px;"></i>
+                        </button>
+                        <input type="test" id="current-TenDangNhapBS" style="display: none;">
+                        <div class="info">
+                            <h2>Tên đăng nhập (Username):</h2><h2 id="display-TenDangNhapBS"></h2>
+                        </div>
+                        <div class="info">
+                            <h2>Mật khẩu (Password):</h2>
+                            <input type="password" id="new-MatKhauBS" required>
+                        </div>
+                        <button class="edit-BacSi" type="submit">Chỉnh sửa</button>
+                    </div>
+                </form>
+            </div>
+            
+            <div id="editAdmin">
+                <button id="close" onclick="hide_editAdmin()">
+                    <i class="fa fa-times" style="font-size:40px;"></i>
+                </button>
+                <h1>Chỉnh sửa mật khẩu</h1>
+                <form id="editAdmin-form" onsubmit="editAdmin()">
+                    <div class="info" style="margin-bottom: 10px;">
+                        <h2>Tên đăng nhập (Username): admin</h2>
+                    </div>
+                    <div class="info">
+                        <h2>Mật khẩu (Password):</h2>
+                        <input type="password" id="new-admin_pass">
+                    </div>
+                    <button id="editAdmin-button" type="submit" onclick="hide_editProfile()">Chỉnh sửa</button>
+                </form>
+            </div>
+
+            <div id="avatar">
+                <img src="./img/avatar.png" alt="avatar">
+            </div>
+
+            <div id="info-Profile">
+                <div class="info">
+                    <p class="p1">Tên đăng nhập: 
+                        <p id="profile-tendangnhap"></p>
+                    </p>
+                </div>
+                <div class="info">
+                    <p class="p1">Họ và tên: 
+                        <p id="profile-hoten"></p>
+                    </p>
+                </div>
+                <div class="info">
+                    <p class="p1">Giới tính: 
+                        <p id="profile-gioitinh"></p>
+                    </p>
+                </div>
+                <div class="info">
+                    <p class="p1">Ngày sinh: 
+                        <p id="profile-ngaysinh"></p>
+                    </p>
+                </div>
+                <div class="info">
+                    <p class="p1">Email: 
+                        <p id="profile-email"></p>
+                    </p>
+                </div>
+                <div class="info">
+                    <p class="p1">Số điện thoại: 
+                        <p id="profile-sdt"></p>
+                    </p>
+                </div>
+                <div id="form-button">
+                    <input type="button" id="chinhsuProfile" onclick="open_editProfile()" value="Chỉnh sửa thông tin cá nhân">
+                    <input type="button" id="deleteProfile" onclick="createConfirmForm()" value="Xóa tài khoản">
+                </div>
+            </div>
+        </div>
+
+        <div id="user-panel">
+            <h1>Lịch sử đáng giá</h1>
+            <input type="button" onclick="LichSuList()" value="Làm mới">    
+        </div>
+        <div id="admin-panel">
+            <ul>
+                <li><button class="selection" onclick="createFilterAcc()" id="AccountList">
+                    Tài khoản
+                </button></li>
+                <li><button class="selection" onclick="LichSuList()" id="LichSu">
+                    Lịch sử
+                </button></li>
+                <li><button class="selection" onclick="Boloc()" id="BoLoc">
+                    Bộ lọc
+                </button></li>
+                <li><button class="selection" onclick="ChucNang()" id="ChucNang">
+                    Chức năng
+                </button></li>
+                <li style="display: none;"><button class="selection active"></button></li>
+            </ul>
+        </div>
+        <div id="bacsi-panel">
+            <ul>
+                <li><button class="selection" onclick="createFilterAcc()" id="AccountList">
+                    Tài khoản
+                </button></li>
+                <li><button class="selection" onclick="Boloc()" id="BoLoc">
+                    Lịch sử
+                </button></li>
+                <li><button class="selection" onclick="ChucNang()" id="ChucNang">
+                    Chức năng
+                </button></li>
+                <li style="display: none;"><button class="selection active"></button></li>
+            </ul>
+        </div>
+        <div id="list"></div>
+    </div>
+
+    <script src="./profile.js"></script>
+    <script src="./chucnang.js"></script>
+</body>
+</html>

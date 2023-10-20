@@ -1,0 +1,225 @@
+﻿<!DOCTYPE html>
+<html>
+    
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../Style.css">
+    <link rel="stylesheet" href="../login-register.css">
+    <link rel="icon" href="../img/logo-gd.png">
+    <script src="../login-register.js"></script>
+    <title>Các bài đánh giá tâm lý</title>
+</head>
+
+<body>
+    <div id="header-banner">
+        <h1>Các bài đánh giá tâm lý</h1>
+    </div>
+
+    <div class="main">
+        <div id="menu">
+            <input type="search" id="search-bar" onblur="this.value =''; this.placeholder = ''" onfocus="placeholder='Nhập nội dung cần tìm'" >
+            <ul>
+                <li>
+                    <a href="../../home.html">Trang chủ</a>
+                </li>
+                <li>
+                    <a href="./exam_list.html">Bài đánh giá</a>
+                    <ul>
+                        <li>
+                            <a href="./dass-21.html">DASS-21</a>
+                        </li>
+                        <li>
+                            <a href="./rads10-20.html">RADS 10-20</a>
+                        </li>
+                        <li>
+                            <a href="./dass-42.html">DASS-42</a>
+                        </li>
+                        <li>
+                            <a href="./phq-9.html">PHQ-9</a>
+                        </li>
+                        <li>
+                            <a href="./bdi.html">Beck (BDI)</a>
+                        </li>
+                        <li>
+                            <a href="./gad-7.html">GAD-7</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <button id="login-button" onclick="showlogin()">
+                <i class="fas fa-sign-in-alt"></i>
+            </button>
+            <a id="profile-button" href="../profile.html">
+                <i class="fa fa-user"></i>
+            </a>
+            <button id="logout-button" onclick="logout()">
+                <i class="fa fa-sign-out-alt"></i>
+            </button>
+        </div>
+    
+        <div id="login">
+            <button id="close" onclick="hidelogin()">
+                <i class="fa fa-times" style="font-size:40px;"></i>
+            </button>
+            <h1>đăng nhập</h1>
+                <form id="login-form" onsubmit="login()">
+                    <div class="info">
+                    <h2>Tên đăng nhập (Username):</h2>
+                        <input type="text" id="TenDangNhap-l">
+                    </div>
+                    <div class="info">
+                        <h2>Mật khẩu (Password):</h2>
+                        <input type="password" id="MatKhau-l">
+                    </div>
+                    <button id="sign-in" type="submit" onclick="kiemtra()">Đăng Nhập</button>
+                </form>
+            <div id="sign-up">
+                Bạn chưa có tài khoản?<a href="#" onclick="open_register()"> Đăng ký</a>
+            </div>
+        </div>
+    
+        <div id="register">
+            <button id="close" onclick="hide_register()">
+                <i class="fa fa-times" style="font-size:40px;"></i>
+            </button>
+            <h1>Đăng ký</h1>
+            <form id="register-form" onsubmit="register()">
+                <div id="step1">
+                    <div class="info">
+                        <h2>Họ và tên:</h2>
+                        <input type="text" id="HoTen" required>
+                    </div>
+                    <div class="info">
+                        <h2>Ngày sinh:</h2>
+                        <input type="date" id="NgaySinh" min="1900-01-01" max="2023-06-01" required>   
+                    </div>
+                    <div class="info">
+                        <h2>Giới tính:</h2> 
+                        <select id="GioiTinh" style="border-radius: 20px; padding: 5px 30px; width: 20%;border: #dddfe2 2px solid; margin: 10px 0px 10px 3%;" required>
+                            <option value="Khác">Khác</option>
+                            <option value="Nam">Nam</option>
+                            <option value="Nữ">Nữ</option>
+                        </select>
+                    </div>
+                    <div class="info">
+                        <h2>Số điện thoại (tùy chọn): </h2>
+                        <input type="tel" id="SDT" pattern="[0]{1}[0-9]{9}">
+                    </div>
+                    <div class="info">
+                        <h2>Email (tùy chọn): </h2> 
+                        <input type="email" id="Email">
+                    </div>
+                    <button class="sign-up" type="button" onclick="nextstep()">Tiếp tục</button>
+                </div>
+    
+                <div id="step2">
+                    <button id="goback" type="button" onclick="prevstep()">
+                        <i class="fa fa-arrow-left" style="font-size:40px;"></i>
+                    </button>
+                    <div class="info">
+                        <h2>Tên đăng nhập (Username):</h2>
+                        <input type="text" id="TenDangNhap-r" required>
+                    </div>
+                    <div class="info">
+                        <h2>Mật khẩu (Password):</h2>
+                        <input type="password" id="MatKhau-r" required>
+                    </div>
+                    <button class="sign-up" type="submit">Đăng Ký</button>
+                </div>
+            </form>
+            <div id="sign-in">
+                Bạn đã có tài khoản?<a href="#" onclick="showlogin()"> Đăng nhập</a>
+            </div>
+        </div>
+        
+        <div id="gotop">
+            <a href="#"><i class='fa fa-arrow-up'style='font-size:20px; color: white;'></i></a>
+        </div>
+        
+        <div id="listpost">
+            <div class="post">
+                <div class="thumb">
+                    <img src="../img/dass.png" alt="DASS-21">
+                </div>
+                <div class="info">
+                    <a href="./dass-21.html"><h3>Bài đánh giá Trầm cảm - Lo âu - Stress (DASS-21)</h3></a>
+                    <p>DASS-21 (Depression Anxiety and Stress Scales) là thang đánh giá được phát triển bởi các nhà khoa học thuộc 
+                        Đại học New South Wales (University of New South Wales), Australia. </p>
+                    <p>DASS-21 có thể được dùng trong tầm soát và đánh giá mức độ trầm cảm, lo âu và stress.</p>
+                    <p>DASS-21 là thang tự đánh giá gồm 21 mục, có thể đánh giá được cả trầm cảm, lo âu và stress.</p>
+                </div>
+            </div>
+
+            <div class="post">
+                <div class="thumb">
+                    <img src="../img/rads10-20.jfif" alt="RADS 10-20">
+                </div>
+                <div class="info">
+                    <a href="./rads10-20.html"><h3>Bài đánh giá trầm cảm thanh thiếu niên (RADS 10-20)</h3></a>
+                    <p>Thang đánh giá trầm cảm thanh thiếu niên (Reynolds Adolescent Depression Scale, RADS 10-20) 
+                        là thang tự đánh giá nhằm xác định tình trạng trầm cảm ở thanh thiếu niên do William M. Reynolds xây dựng năm 1986.
+                        Thang RADS đã được Việt hóa bởi các bác sỹ tại Viện Sức khỏe tâm thần Quốc gia và đưa vào sử dụng tại viện từ năm 1995.
+                    </p>
+                    <p>
+                        RADS là thang tự đánh giá ngắn gọn gồm 30 đề mục để đánh giá mức độ hiện thời của các triệu chứng trầm cảm ở thanh thiếu niên.
+                    </p>
+                    <p>
+                        RADS được sử dụng ở cả trong trường học và các cơ sở lâm sàng, nó phù hợp cho thanh thiếu niên trong độ tuổi từ 10 đến 20.
+                    </p>
+                </div>
+            </div>
+
+            <div class="post">
+                <div class="thumb">
+                    <img src="../img/dass.png" alt="">
+                </div>
+                <div class="info">
+                    <a href="./dass-42.html"><h3>Bài đánh giá Trầm cảm - Lo âu - Stress (DASS-42)</h3></a>
+                    <p>DASS-42 (Depression Anxiety and Stress Scales) là thang đánh giá được phát triển bởi các nhà khoa học thuộc 
+                        Đại học New South Wales (University of New South Wales), Australia. </p>
+                    <p>DASS-42 có thể được dùng trong tầm soát và đánh giá mức độ trầm cảm, lo âu và stress.</p>
+                    <p>DASS-42 là thang tự đánh giá gồm 42 mục, có thể đánh giá được cả trầm cảm, lo âu và stress.</p>
+                </div>
+            </div>
+
+            <div class="post">
+                <div class="thumb">
+                    <img src="../img/phq-9.png" alt="">
+                </div>
+                <div class="info">
+                    <a href="./phq-9.html"><h3>Bài đánh giá trầm cảm (PHQ-9)</h3></a>
+                    <p>Trầm cảm là một rối loạn tâm thần thường gặp. Theo Tổ chức Y tế thế giới, trên toàn cầu có hơn 300 triệu người thuộc đủ các lứa tuổi mắc trầm cảm. Trầm cảm là nguyên nhân hàng đầu dẫn đến mất chức năng, và nhân tố chính góp phần vào gánh nặng bệnh tật toàn cầu.</p>
+                    <p>Tuy nhiên, hiện nay đã có những phương pháp điều trị hóa dược và tâm lý có hiệu quả đối với trầm cảm. Phát hiện bệnh và điều trị càng sớm, hiệu quả càng cao.</p>
+                    <p>PHQ-9 (Patient Health Questionnaire-9) là một thang có giá trị trong việc tầm soát và theo dõi triệu chứng trầm cảm.</p>
+                </div>
+            </div>
+
+            <div class="post">
+                <div class="thumb">
+                    <img src="../img/bdi.png" alt="">
+                </div>
+                <div class="info">
+                    <a href="./bdi.html"><h3>Bài đánh giá trầm cảm (Beck - BDI)</h3></a>
+                    <p>Trầm cảm là một rối loạn tâm thần thường gặp. Theo Tổ chức Y tế thế giới, trên toàn cầu có hơn 300 triệu người thuộc đủ các lứa tuổi mắc trầm cảm.
+                    Trầm cảm là nguyên nhân hàng đầu dẫn đến mất chức năng, và nhân tố chính góp phần vào gánh nặng bệnh tật toàn cầu.</p>
+                    <p>Tuy nhiên, hiện nay đã có những phương pháp điều trị hóa dược và tâm lý có hiệu quả đối với trầm cảm. Phát hiện bệnh và điều trị càng sớm, hiệu quả càng cao.</p>
+                    <p>Thang đánh giá trầm cảm Beck (BDI) được tạo ra bởi Aaron T.Beck. Đây là một thang tự đánh giá gồm 21 câu hỏi và là một trong những trắc nghiệm tâm lý được sử dụng rộng rãi nhất được sử dụng để đo mức độ nghiêm trọng của chứng rối loạn trầm cảm.</p>
+                </div>
+            </div>
+
+            <div class="post">
+                <div class="thumb">
+                    <img src="../img/gad-7.png" alt="">
+                </div>
+                <div class="info">
+                    <a href="./gad-7.html"><h3>Bài đánh giá lo âu GAD-7</h3></a>
+                    <p>Rối loạn lo âu là một nhóm các rối loạn tâm thần thường gặp, gây nhiều ảnh hưởng đến cuộc sống người bệnh. Phát hiện sớm giúp điều trị có hiệu quả hơn các rối loạn lo âu. Và đó là lý do thang đánh giá lo âu GAD-7 ra đời.</p>
+                    <p>GAD-7 (General Anxiety Disorder-7) là thang đánh giá ngắn gọn với 7 câu hỏi, có giá trị trong tầm soát và theo dõi các rối loạn lo âu.</p>
+                    <p>Thang đo GAD-7 là thang đánh giá lo âu của Spitzer và cộng sự được Nhóm nghiên cứu của bệnh viện Tâm thần Đà Nẵng dịch, hiệu đính, chuẩn hóa. GAD-7 dựa trên các tiêu chí chẩn đoán được mô tả trong DSM-IV.</p>  
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../chucnang.js"></script>
+</body>
+</html>

@@ -1,0 +1,812 @@
+#wrapper{
+    display: block;
+    width: 70%;
+    margin: 40px 15%;
+    padding: .5% 2% 2%;
+    background: rgb(235, 235, 235);
+    border-radius: 20px;
+}
+
+#header{
+    height: 60px;
+    border-bottom: gray solid 1px;
+}
+
+#header h1{
+    font-size: 40px;
+    display: inline;
+    line-height: 60px;
+    text-align: justify;
+}
+
+#user-panel{
+    height: 60px;
+    border-bottom: gray solid 1px;
+    display: block;
+}
+
+#user-panel h1{
+    font-size: 40px;
+    display: inline;
+    line-height: 60px;
+    text-align: justify;
+}
+
+#XacNhan{
+    width: 60%;
+    height: 400px;
+    display: block;
+    padding: 1% 2%;
+    float: right;
+}
+
+#XacNhan #h2{
+    font-size: 35px;
+    text-transform: uppercase;
+    margin-bottom: 5%;
+    text-align: center;
+}
+
+#xn-button{
+    font-size: 20px;
+    width: 80%;
+    margin: 20px 5%;
+    padding: 5px;
+    border-radius: 35px;
+    background: #4f9bff;
+}
+
+#profile{
+    height: 400px;
+}
+
+#profile #avatar{
+    float: left;
+    width: 30%;
+    padding: auto;
+    margin-left: 35%;
+}
+
+#profile #avatar img{
+    max-width: 100%;
+    margin-top: 14px;
+}
+
+#profile #info-Profile{
+    float: right;
+    width: auto;
+    text-align: justify;
+    width: 60%;
+    padding: 2%;
+    display: none;
+}
+
+#profile #info-Profile .info{
+    margin: 5px;
+    font-size: 25px;
+    display: block;
+    padding: 5px;
+}
+
+#profile #info-Profile #chinhsuAdmin{
+    margin: 4px;
+    display: block;
+    width: 100%;
+    padding: 3px;
+    border-radius: 30px;
+    background: whitesmoke;
+    border: gray 2px solid;
+}
+
+#profile #info-Profile #form-button{
+    display: flex;
+}
+
+#form-button #chinhsuProfile,
+#form-button #deleteProfile{
+    margin: 2px;
+    width: 50%;
+    padding: 3px;
+    border-radius: 30px;
+    background: whitesmoke;
+    border: gray 2px solid;
+}
+
+
+
+#profile #info-Profile .info .p1{
+    display: inline;
+    font-size: 30px;
+    font-weight: 600;
+    height: 35px;
+    line-height: 35px;
+    margin-top: 10px;
+}
+
+#profile #info-Profile .info p{
+    display: inline;
+    font-size: 25px;
+}
+
+#header #showInfo,
+#header #hideInfo{
+    position: relative;
+    bottom: 85%;
+    left: 80%;
+    font-size: 20px;
+    width: 20%;
+    padding: 5px;
+    border-radius: 35px;
+    background: whitesmoke;
+    border: gray 2px solid;
+}
+
+#list{
+    display: block;
+    width: 100%;
+    padding: 1.5% 3%;
+    background: rgb(235, 235, 235);
+}
+
+#header input{
+    width: 15%;
+    position: relative;
+    bottom: 10%;
+    left: 58%;
+    font-size: 20px;
+    padding: 5px;
+    border-radius: 35px;
+    background: whitesmoke;
+}
+
+#user-panel input{
+    width: 15%;
+    position: relative;
+    bottom: 10%;
+    left: 58%;
+    font-size: 20px;
+    padding: 5px;
+    border-radius: 35px;
+    background: whitesmoke;
+    border: gray 2px solid;
+}
+
+.exam{
+    width: 90%;
+    margin: 2% 3%;
+    border: black solid 1px;
+    padding: 1% 2%;
+    border-radius: 30px;
+}
+
+.exam .exam-header{
+    width: 100%;
+}
+
+.exam .exam-header p{
+    display: inline;
+    font-size: 30px;
+    margin-right: 10%;
+    font-weight: 600;
+}
+
+.exam .ThoiGian{
+    font-size: 17px;
+    margin: 0 0 4%;
+    padding: 0;
+}
+
+.exam .NguoiThucHien,
+.exam .TinhTrang,
+.exam .DeNghi{
+    display: block;
+    margin: 5px;
+}
+
+#edit-close{
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    width: 40px;
+    height: 50px;
+    line-height: 30px;
+    border: none;
+    background: none;
+    z-index: 99;
+    cursor: pointer;
+}
+
+#edit-goback{
+    position: fixed;
+    top: 37%;
+    left: 31%;
+    width: 40px;
+    height: 50px;
+    line-height: 30px;
+    border: none;
+    background: none;
+    z-index: 99;
+    cursor: pointer;
+}
+
+#editProfile{
+    width: 40%;
+    background: rgba(235 235 235);
+    position: fixed;
+    border-radius: 50px;
+    height: 65%;
+    top: 19%;
+    left: 30%;
+    display: none;
+    font-size: 20px;
+    border: rgb(0, 0, 0) solid 1px;
+}
+
+#editProfile-form{
+    display: block;
+    width: 100%;
+    position: absolute;
+    top: 120px;
+}
+
+#editProfile #edit-step1{
+    display: block;
+}
+
+#editProfile #edit-step2{
+    display: none;
+}
+
+#editProfile h1{
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    position: relative;
+    font-size: 30px;
+    margin-top: 2.5%;
+    text-transform: uppercase;
+    z-index: 90;
+}
+
+#editProfile .edit-Profile{
+    font-size: 20px;
+    width: 87%;
+    margin: 20px 6.5%;
+    padding: 5px;
+    border-radius: 35px;
+    background: #4f9bff;
+}
+
+.edit a{
+    margin: 0px 5px;
+}
+
+
+/* #edit-step2 .info h2,
+#edit-step1 .info h2{
+    margin-left: 4%;
+    font-size: 25px;
+    display: inline;
+} */
+
+#edit-step2 .info input,
+#edit-step1 .info input{  
+    height: 30px;
+    width: 90%;
+    margin: 1% 5% 1% 5%;
+    border-radius: 15px;
+    padding-left: 2%;
+    border: #dddfe2 2px solid;
+}
+
+#editAdmin{
+    width: 40%;
+    background: rgba(235 235 235);
+    height: 32%;
+    position: fixed;
+    border-radius: 50px;
+    top: 35%;
+    left: 30%;
+    display: none;
+    font-size: 30px;
+    border: black solid 1px;
+}
+
+#editAdmin-form{
+    display: block;
+    width: 100%;
+    position: absolute;
+    top: 120px;
+}
+
+#editAdmin h1{
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    position: relative;
+    font-size: 30px;
+    margin-top: 2.5%;
+    text-transform: uppercase;
+    z-index: 90;
+}
+
+#editAdmin #editAdmin-button{
+    font-size: 20px;
+    width: 87%;
+    margin: 20px 5%;
+    padding: 5px;
+    border-radius: 35px;
+    background: #4f9bff;
+}
+
+#admin-panel{
+    height: 60px;
+    border-bottom: gray solid 1px;
+    display: none;
+}
+
+#admin-panel ul{
+    display: inline-flex;
+}
+
+#admin-panel ul li{
+    list-style: none;
+
+    /* border-bottom: none; */
+}
+
+#admin-panel ul li button{
+    margin: 0px 5px;
+    padding: 10px 13px 10px;
+    line-height: 40px;
+    font-size: 30px;
+    font-weight: 600;
+    cursor:pointer;
+    border: none;
+    background: none;
+}
+
+#admin-panel ul li button:hover,
+#admin-panel ul li .active{
+    height: 60px;
+    border-bottom: black 5px solid;
+    transition: all 0.1s ease-in-out;
+}
+
+
+#admin-panel input{
+    float: right;
+    width: 10%;
+    font-size: 20px;
+    margin-top: 11px;
+    padding: 5px;
+    border-radius: 20px;
+    background: whitesmoke;
+}
+
+#bacsi-panel{
+    height: 60px;
+    border-bottom: gray solid 1px;
+    display: none;
+}
+
+#bacsi-panel ul{
+    display: inline-flex;
+}
+
+#bacsi-panel ul li{
+    list-style: none;
+
+    /* border-bottom: none; */
+}
+
+#bacsi-panel ul li button{
+    margin: 0px 5px;
+    padding: 10px 13px 10px;
+    line-height: 40px;
+    font-size: 30px;
+    font-weight: 600;
+    cursor:pointer;
+    border: none;
+    background: none;
+}
+
+#bacsi-panel ul li button:hover,
+#bacsi-panel ul li .active{
+    height: 60px;
+    border-bottom: black 5px solid;
+    transition: all 0.1s ease-in-out;
+}
+
+
+#bacsi-panel input{
+    float: right;
+    width: 10%;
+    font-size: 20px;
+    margin-top: 11px;
+    padding: 5px;
+    border-radius: 20px;
+    background: whitesmoke;
+}
+
+.account{
+    width: 90%;
+    margin: 2% auto;
+    border: black solid 1px;
+    padding: 1% 2%;
+    border-radius: 30px;
+}
+
+.account .account-header{
+    width: 100%;
+}
+
+.account .account-header .edit-button{
+    font-size: 20px;
+    float: right;
+    height: 40px;
+    width: 40px;
+    border: none;
+    background: none;
+    border-radius: 10px;
+    padding: 8.5px 10px 8.5px;
+    position: relative;
+    right: 42px;
+}
+
+.account .account-header .del-button{
+    font-size: 20px;
+    float: right;
+    height: 40px;
+    width: 40px;
+    border: none;
+    background: none;
+    border-radius: 10px;
+    padding: 8.5px 10px 8.5px;
+    position: relative;
+    right: -42px;
+}
+
+.account .account-header .del-button:hover,
+.account .account-header .edit-button:hover{
+    background: lightgray;
+    border-radius: 10px;
+}
+
+.account .account-header .del-button:active{
+    border-radius: 10px;
+    background: lightblue;
+}
+
+.account .account-header p{
+    display: inline;
+    font-size: 30px;
+    margin-right: 5%;
+    font-weight: 600;
+}
+
+
+
+.account .gioitinh{
+    font-size: 17px;
+    margin: 0 0 2%;
+    padding: 0;
+}
+
+.account .ngaysinh,
+.account .sobaitest,
+.account .sdt,
+.account .email,
+.account .chucvu,
+.account .manv{
+    display: block;
+    margin: 5px;
+    font-size: 20px;
+}
+
+.account .manv{
+    margin-top: 5%;
+}
+
+#confirm{
+    display: block;
+    width: 30%;
+    height: 30%;
+    position: fixed;
+    top: 35%;
+    left: 35%;
+    background: rgb(235, 235, 235);
+    border: gray solid 2px;
+    border-radius: 20px;
+}
+
+#confirm h1{
+    font-size: 40px;
+    text-align: center;
+    margin: 10px;
+}
+
+#confirm p{
+    font-size: 30px;
+    text-align: center;
+    margin: 10% 0;
+}
+
+#confirm #confirm-yes, 
+#confirm #confirm-no{
+    width: 20%;
+    border-radius: 10px;
+    padding: 5px 10px;
+    position: relative;
+    bottom: 0%;
+}
+
+#confirm #confirm-yes{
+    float: left;
+    left: 20%;
+}
+
+#confirm #confirm-no{
+    float: right;
+    right: 20%;
+}
+
+#filter{
+    width: 100%;
+    display: inline;
+    padding: 1% 0;
+    margin: 1% ;
+}
+
+#filter select{
+    font-size: 20px;
+    border-radius: 10px;
+    padding: 5px 20px;
+    width: 17%;
+    margin: 0px 10px;
+    border: gray 2px solid;
+    text-align: justify;
+}
+
+#filter #KhoangTG{
+    display: inline-flex;
+    border: gray 2px solid;
+    border-radius: 10px;
+    background: white;
+    margin: 0px 20px;
+    width: 30%;
+}
+
+#filter #KhoangTG input[type="text"],
+#filter #KhoangTG input[type="date"]{
+    border-radius: 10px;
+    padding: 5px 20px;
+    width: 50%;
+    margin: 0;  
+    border: none;
+    background: none;
+}
+
+#filter #KhoangTG input::placeholder{
+    text-align: center;
+}
+
+#filter input{
+    border-radius: 10px;
+    padding: 5px 10px;
+    width: 15%;
+    margin: 0px 10px;
+    border: gray 2px solid;
+    text-align: center;
+}
+
+#filter #search-hoten,
+#filter #search-sdt{
+    width: 27%;
+}
+
+#Account-ThongKe,
+#Exam-ThongKe{
+    margin: .5% .5% 0;
+    padding: 1% 1% 0;
+}
+
+#Account-ThongKe #Account-Tong,
+#Exam-ThongKe #Exam-Tong{
+    display: inline-flex;
+    width: 100%;
+    height: 50px;
+    margin: 5px 0;
+    padding: 5px 0;
+}
+
+button + p{   
+    font-size: 40px;
+    font-weight: 600;
+}
+
+.expand-collapse{
+    border: none;
+    width: 40px;
+    height: 40px;
+    background: none;
+    cursor: pointer;
+}
+
+.after-expand{
+    margin-left: 5%;
+    padding-left: 5%;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.2s ease-out;
+}
+
+.after-expand p{
+    font-size: 25px;
+    font-weight: 400;
+    padding: 3px;
+}
+
+#Tao-TKuser,
+#Tao-TKbacsi{
+    font-size: 35px;
+    border-radius: 20px;
+    padding: 1%;
+    text-align: center;
+    background: none;
+    margin: .5% 0;
+}
+
+#Tao-TKuser{
+    width: 59.5%; 
+    float: left;
+}
+
+#Tao-TKbacsi{
+    width: 39.5%; 
+    float: right;
+}
+
+#Tao-TKuser:hover,
+#Tao-TKbacsi:hover,
+#Del-TK:hover,
+#Del-Test:hover{
+    background-color: #d4d4d4;
+}
+
+#Del-TK,
+#Del-Test{
+    width: 100%;
+    font-size: 40px;
+    border-radius: 20px;
+    margin: .5% 0;
+    padding: 1%;
+    text-align: center;
+}
+
+#register-bacsi{
+    width: 40%;
+    background: rgba(235 235 235);
+    position: fixed;
+    border-radius: 50px;
+    height: 50%;
+    top: 25%;
+    left: 30%;
+    display: block;
+    font-size: 20px;
+    border: rgb(0, 0, 0) solid 1px;
+    z-index: 99;
+}
+
+#register-bacsi h1{
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    position: relative;
+    font-size: 35px;
+    margin-top: 4%;
+    margin-bottom: 7%;
+    text-transform: uppercase;
+    z-index: 90;
+}
+
+.info h2{
+    margin-left: 4%;
+    font-size: 25px;
+    display: inline;
+}
+
+.bacsi-nextstep{
+    font-size: 20px;
+    width: 87%;
+    margin: 20px 6.5%;
+    padding: 5px;
+    border-radius: 35px;
+    background: #4f9bff;
+}
+
+#bacsi-form #bacsi-step1{
+    display: block;
+}
+
+#bacsi-form #bacsi-step2{
+    display: none;
+}
+
+#bacsi-goback{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 40px;
+    height: 50px;
+    line-height: 30px;
+    border: none;
+    background: none;
+    z-index: 99;
+    cursor: pointer;
+}
+
+.bacsi-register{
+    font-size: 20px;
+    width: 87%;
+    margin: 20px 6.5%;
+    padding: 5px;
+    border-radius: 35px;
+    background: #4f9bff;
+}
+
+#editBacSi{
+    width: 40%;
+    background: rgba(235 235 235);
+    position: fixed;
+    border-radius: 50px;
+    height: 50%;
+    top: 25%;
+    left: 30%;
+    display: none;
+    font-size: 20px;
+    border: rgb(0, 0, 0) solid 1px;
+    z-index: 99;
+}
+
+#editBacSi h1{
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    position: relative;
+    font-size: 35px;
+    margin-top: 4%;
+    margin-bottom: 7%;
+    text-transform: uppercase;
+    z-index: 90;
+}
+
+#editBS-form #editBS-step1{
+    display: block;
+}
+
+#editBS-form #editBS-step2{
+    display: none;
+}
+
+#editBS-goback{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 40px;
+    height: 50px;
+    line-height: 30px;
+    border: none;
+    background: none;
+    z-index: 99;
+    cursor: pointer;
+}
+
+.edit-BacSi{
+    font-size: 20px;
+    width: 87%;
+    margin: 20px 6.5%;
+    padding: 5px;
+    border-radius: 35px;
+    background: #4f9bff;
+}

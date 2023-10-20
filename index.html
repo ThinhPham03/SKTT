@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./res/style.css">
+    <link rel="stylesheet" href="./res/login-register.css">
+    <link rel="icon" href="./res/img/logo-gd.png">
+    <script src="./res/login-register.js"></script>
+    <title>Sức khỏe tâm thần</title>
+</head>
+
+<body>
+    <div id="header-banner">
+        <img src="./res/img/logo.png" alt="">
+        <H1 id="rs-logo">Sức khỏe tâm thần</H1>
+    </div>
+
+    <div id="menu">
+        <input type="search" id="search-bar" onblur="this.value =''; this.placeholder = ''" onfocus="placeholder='Nhập nội dung cần tìm'">
+        <ul>
+            <li>
+                <a href="./home.html">Trang chủ</a>
+            </li>
+            <li>
+                <a href="./res/exam/exam_list.html">Bài đánh giá</a>
+                <ul>
+                    <li>
+                        <a href="./res/exam/dass-21.html">DASS-21</a>
+                    </li>
+                    <li>
+                        <a href="./res/exam/rads10-20.html">RADS 10-20</a>
+                    </li>
+                    <li>
+                        <a href="./res/exam/dass-42.html">DASS-42</a>
+                    </li>
+                    <li>
+                        <a href="./res/exam/phq-9.html">PHQ-9 </a>
+                    </li>
+                    <li>
+                        <a href="./res/exam/bdi.html">Beck (BDI)</a>
+                    </li>
+                    <li>
+                        <a href="./res/exam/gad-7.html">GAD-7</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <button id="login-button" onclick="showlogin()">
+            <i class="fas fa-sign-in-alt"></i>
+        </button>
+        <a id="profile-button" href="./res/profile.html">
+            <i class="fa fa-user"></i>
+        </a>
+        <button id="logout-button" onclick="logout()">
+            <i class="fa fa-sign-out-alt"></i>
+        </button>
+    </div>
+
+    <div id="login">
+        <button id="close" onclick="hidelogin()">
+            <i class="fa fa-times" style="font-size:40px;"></i>
+        </button>
+        <h1>đăng nhập</h1>
+            <form id="login-form" onsubmit="login()">
+                <div class="info">
+                <h2>Tên đăng nhập (Username):</h2>
+                    <input type="text" id="TenDangNhap-l">
+                </div>
+                <div class="info">
+                    <h2>Mật khẩu (Password):</h2>
+                    <input type="password" id="MatKhau-l">
+                </div>
+                <button id="sign-in" type="submit" onclick="kiemtra()">Đăng Nhập</button>
+            </form>
+        <div id="sign-up">
+            Bạn chưa có tài khoản?<a href="#" onclick="open_register()"> Đăng ký</a>
+        </div>
+    </div>
+
+    <div id="register">
+        <button id="close" onclick="hide_register()">
+            <i class="fa fa-times" style="font-size:40px;"></i>
+        </button>
+        <h1>Đăng ký</h1>
+        <form id="register-form" onsubmit="register()">
+            <div id="step1">
+                <div class="info">
+                    <h2>Họ và tên:</h2>
+                    <input type="text" id="HoTen" required>
+                </div>
+                <div class="info">
+                    <h2>Ngày sinh:</h2>
+                    <input type="date" id="NgaySinh" min="1900-01-01" max="2023-06-01" required>   
+                </div>
+                <div class="info">
+                    <h2>Giới tính:</h2> 
+                    <select id="GioiTinh" style="border-radius: 20px; padding: 5px 30px; width: 20%;border: #dddfe2 2px solid; margin: 10px 0px 10px 3%;" required>
+                        <option value="Khác">Khác</option>
+                        <option value="Nam">Nam</option>
+                        <option value="Nữ">Nữ</option>
+                    </select>
+                </div>
+                <div class="info">
+                    <h2>Số điện thoại (tùy chọn): </h2>
+                    <input type="tel" id="SDT" pattern="[0]{1}[0-9]{9}">
+                </div>
+                <div class="info">
+                    <h2>Email (tùy chọn): </h2> 
+                    <input type="email" id="Email">
+                </div>
+                <button class="sign-up" type="button" onclick="nextstep()">Tiếp tục</button>
+            </div>
+
+            <div id="step2">
+                <button id="goback" type="button" onclick="prevstep()">
+                    <i class="fa fa-arrow-left" style="font-size:40px;"></i>
+                </button>
+                <div class="info">
+                    <h2>Tên đăng nhập (Username):</h2>
+                    <input type="text" id="TenDangNhap-r" required>
+                </div>
+                <div class="info">
+                    <h2>Mật khẩu (Password):</h2>
+                    <input type="password" id="MatKhau-r" required>
+                </div>
+                <button class="sign-up" type="submit">Đăng Ký</button>
+            </div>
+        </form>
+        <div id="sign-in">
+            Bạn đã có tài khoản?<a href="#" onclick="showlogin()"> Đăng nhập</a>
+        </div>
+    </div>
+
+    <div id="gotop">
+        <a href="#"><i class='fa fa-arrow-up'style='font-size:20px; color: white;'></i></a>
+    </div>
+
+    <div id="main-content">
+        <div class="slide-wrapper">
+            <div class="slide">
+                <img class="hinhnen" src="./res/img/hinhnen.jpg" alt="">
+            </div>
+    
+            <div class="slide">
+                <img class="hinhnen" src="./res/img/Slide2.png" alt="">
+            </div>
+    
+            <div class="slide" id="slide 1" style="height: 20vh;">
+                <div class="KhungSoLieu">
+                    <div id="SoLieu1" style="width: 0%;"></div><h1 id="So1" style="left: 290px;">0%</h1>
+                </div>
+                <p style="width: 0%;">Tương đương 30 triệu dân số mắc vấn để về sức khỏe tâm thần</p>
+            </div>
+    
+            <div class="slide">
+                <img class="hinhnen" src="./res/img/TramCam.png" alt="">
+            </div>
+
+            <div class="slide">
+                <img class="hinhnen" src="./res/img/stress.png" alt="">
+            </div>
+    
+            <div class="slide">
+                <img class="hinhnen" src="./res/img/loau.png" alt="">
+            </div>
+
+            <div class="slide" id="last-slide" style="height: 50vh; margin-top: 3%;">
+                <p style="width: 70%; text-align: center; font-weight: 600; font-size: 100px; display: block; margin-bottom: 1%; height: fit-content;">Nhưng thật đáng buồn</p>
+                <div class="KhungSoLieu">
+                    <div id="SoLieu2" style="width: 0%;"></div><h1 id="So2" style="left: 290px;">0%</h1>
+                </div>
+                <p style="width: 0%; margin-left: 5%;">Hơn 75% người mắc (hơn 11 triệu người) không quan tâm hoặc không được chữa trị thỏa đáng.</p>
+            </div>
+
+            <div class="slide" style="height: 100%;">
+                <img class="hinhnen" src="./res/img/phongtranh.png" alt="">
+            </div>
+    </div>
+
+    <div id="footer">
+        <div id="main-footer">  
+            <div id="thongtin">
+                <h1>Thông tin</h1>
+                <ul>
+                    <li>Địa chỉ: 371 Nguyễn Kiệm, P3, Q.Gò Vấp, TPHCM.</li>
+                    <li>Hotline: 0961.12.10.18 - 0962.12.10.18</li>
+                    <li>Email: hotro@suckhoetamthan.com.vn</li>
+                    <li>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.924905782468!2d106.67640017166893!3d10.817058763169957!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752978d9fa5f57%3A0x9e9a546a3af46cac!2zxJDhuqFpIEjhu41jIEdpYSDEkOG7i25oIC0gQ8ahIHPhu58gMg!5e0!3m2!1sen!2s!4v1684581902229!5m2!1sen!2s" width="400" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="mangxh">
+                <h1>Mạng xã hội</h1>
+                <a target="_blank" href="https://www.youtube.com/results?search_query=s%E1%BB%A9c+kh%E1%BB%8Fe+t%C3%A2m+th%E1%BA%A7n"><img src="./res/img/YouTube.png" alt="YouTube"></a>                
+                <a target="_blank" href="https://www.facebook.com/"><img src="./res/img/facebook.png" alt="facebook"></a>                
+            </div>
+
+            <div id="hotro">
+                <h1>Cần hỗ trợ?</h1>
+                <form action="">
+                    <input type="text" placeholder="Họ Tên" required>
+                    <input type="tel" placeholder="Số Điện Thoại">
+                    <input type="email" placeholder="Email">
+                    <textarea id="input" cols="30" rows="5" placeholder="Nội dung"></textarea>
+                </form>
+            </div>
+        </div>
+        <div id="footer-logo">
+            <img src="./res/img/logo.png" alt="">
+            <div id="rs-logo">
+                <h1>Sức khỏe</h1>
+                <h1>tâm thần</h1>
+            </div>
+        </div>
+    </div>
+
+    <script src="./res/chucnang.js"></script>
+    <script>
+        window.onscroll = function() {
+            var slide = document.getElementById("slide 1");
+            var text = slide.getElementsByTagName('p');
+            var slide_last = document.getElementById("last-slide");
+            var text_last = slide_last.getElementsByTagName('p');
+            console.log(window.pageYOffset);
+            if(window.pageYOffset >= 1200 && window.pageYOffset <= 2100) {
+                let elem = document.getElementById("SoLieu1");
+                let SoLieu = document.getElementById("So1"); 
+                if(elem.style.width == "0%") {
+                    var width = 0;
+                    var solieu = 0;
+                    var left = 290;
+                    var hien = 0;
+                    var id = setInterval(frame, 10);
+                    function frame() {
+                        if(width != 30) {
+                            width += 0.5;
+                            solieu += 0.5; 
+                            left += 9;
+                            elem.style.width = width + '%';
+                            SoLieu.innerHTML = solieu + '%';
+                            SoLieu.style.left = left + 'px';
+                        }
+                        if(hien != 65) {
+                            hien += 0.5;
+                            text[0].style.width = hien + '%';
+                        }
+                    }
+                }
+            } else if(window.pageYOffset <= 1150 || window.pageYOffset >= 2200) {
+                let elem = document.getElementById("SoLieu1");
+                let SoLieu = document.getElementById("So1"); 
+                if(elem.style.width == "30%") {
+                    var width = 30;
+                    var solieu = 30;
+                    var left = 830;
+                    var hien = 65;
+                    var id = setInterval(frame, 10);                
+                    function frame() {
+                        if (width != 0) {    
+                            width -= 0.5; 
+                            solieu -= 0.5; 
+                            left -= 9;
+                            elem.style.width = width + '%';
+                            SoLieu.innerHTML = solieu + '%';
+                            SoLieu.style.left = left + 'px';
+                        }
+                        if(hien != 0) {
+                            hien -= 1;
+                            text[0].style.width = hien + '%';
+                        }
+                    }
+                }
+            } 
+
+            if( window.pageYOffset >= 4200) {
+                var elem = document.getElementById("SoLieu2");
+                var SoLieu = document.getElementById("So2"); 
+                if(elem.style.width == "0%") {
+                    var width = 0;
+                    var solieu = 0;
+                    var left = 260;
+                    var hien = 0;
+                    var id = setInterval(frame, 10);
+                    function frame() {
+                        if(width != 50) {
+                            width += 0.5;
+                            solieu += 0.75; 
+                            left += 9.6;
+                            elem.style.width = width + '%';
+                            SoLieu.innerHTML = solieu + '%';
+                            SoLieu.style.left = left + 'px';
+                        }
+                        if(hien != 95) {
+                            hien += 1;
+                            text_last[1].style.width = hien + '%';
+                        }
+                    }
+                }
+            } 
+            else{
+                var elem = document.getElementById("SoLieu2");
+                var SoLieu = document.getElementById("So2"); 
+                if(elem.style.width == "50%") {
+                    var width = 50;
+                    var solieu = 75;
+                    var left = 1220;
+                    var hien = 95;
+                    var id = setInterval(frame, 10);                
+                    function frame() {
+                        if (width != 0) {    
+                            width -= 0.5; 
+                            solieu -= 0.75; 
+                            left -= 9.6;
+                            elem.style.width = width + '%';
+                            SoLieu.innerHTML = solieu + '%';
+                            SoLieu.style.left = left + 'px';
+                        }
+                        if(hien != 0) {
+                            hien -= 1;
+                            console.log(hien);
+                            text_last[1].style.width = hien + '%';
+                        }
+                    }
+                }
+            } 
+        }
+    </script>
+</body>
+</html>

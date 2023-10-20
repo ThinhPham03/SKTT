@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../Style.css">
+    <link rel="stylesheet" href="../login-register.css">
+    <link rel="icon" href="../img/logo-gd.png">
+    <script src="../login-register.js"></script>
+    <title>PHQ-9</title>
+    <script>
+        function ketqua()   {
+            if(check(9) == true)    {
+                var diemChuan = tinhDiem(9);
+                var tinhTrang = "Mức độ trầm cảm: ", deNghi = "Đề nghị: ";
+                if(diemChuan>=20) {
+                    tinhTrang += "Nghiêm trọng"; 
+                    deNghi += "Điều trị ngay lập tức bằng thuốc (hóa dược trị liệu) theo chỉ định của bác sĩ chuyên khoa và nếu có dấu hiệu suy giảm chức năng nghiêm trọng hoặc đáp ứng điều trị kém, cần chuyển đến chuyên gia sức khỏe tâm thần để làm tâm lý trị liệu và/hoặc phối hợp chăm sóc.";
+                }else if(diemChuan>=15){
+                    tinhTrang += "Trung bình - Nặng";
+                    deNghi +="Điều trị tích cực bằng thuốc (hóa dược trị liệu) và/hoặc tâm lý trị liệu theo chỉ định của bác sĩ chuyên khoa.";
+                }else if(diemChuan>=10){
+                    tinhTrang += "Trung bình";
+                    deNghi += "Cần có kế hoạch điều trị, có thể xem xét việc tham vấn ý kiến chuyên gia, tiếp tục theo dõi và/hoặc dùng thuốc điều trị (hóa dược trị liệu) theo chỉ định của bác sĩ chuyên khoa.";
+                }else if(diemChuan>=5){
+                    tinhTrang += "Nhẹ";
+                    deNghi += "Chú ý, thận trọng trong khi chờ đợi; thực hiện lại trắc nghiệm PHQ-9 trong quá trình theo dõi. Nên khám bác sĩ chuyên khoa để quyết định kế hoạch điều trị."
+                }else{
+                    tinhTrang += "Không - Tối thiểu";
+                    deNghi += "Không có đề xuất kế hoạch điều trị";
+                }
+                updateSoBaiTest();
+                ketLuan(tinhTrang,deNghi);
+                updateLichSuTong(tinhTrang,deNghi);
+                updateTongSoBaiTest();
+            }
+        }
+    </script>
+</head>
+<body>
+        <div id="header-banner">
+                <h1>Bài đánh giá trầm cảm PHQ-9</h1>
+        </div>
+    
+        <div id="menu">
+            <input type="search" id="search-bar" onblur="this.value =''; this.placeholder = ''" onfocus="placeholder='Nhập nội dung cần tìm'" >
+            <ul>
+                <li>
+                    <a href="../../home.html">Trang chủ</a>
+                </li>
+                <li>
+                    <a href="./exam_list.html">Bài đánh giá</a>
+                    <ul>
+                        <li>
+                            <a href="./dass-21.html">DASS-21</a>
+                        </li>
+                        <li>
+                            <a href="./rads10-20.html">RADS 10-20</a>
+                        </li>
+                        <li>
+                            <a href="./dass-42.html">DASS-42</a>
+                        </li>
+                        <li>
+                            <a href="./phq-9.html">PHQ-9 </a>
+                        </li>
+                        <li>
+                            <a href="./bdi.html">Beck (BDI)</a>
+                        </li>
+                        <li>
+                            <a href="./gad-7.html">GAD-7</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <button id="login-button" onclick="showlogin()">
+                <i class="fas fa-sign-in-alt"></i>
+            </button>
+            <a id="profile-button" href="../profile.html">
+                <i class="fa fa-user"></i>
+            </a>
+            <button id="logout-button" onclick="logout()">
+                <i class="fa fa-sign-out-alt"></i>
+            </button>
+        </div>
+    
+        <div id="login">
+            <button id="close" onclick="hidelogin()">
+                <i class="fa fa-times" style="font-size:40px;"></i>
+            </button>
+            <h1>đăng nhập</h1>
+                <form id="login-form" onsubmit="login()">
+                    <div class="info">
+                    <h2>Tên đăng nhập (Username):</h2>
+                        <input type="text" id="TenDangNhap-l">
+                    </div>
+                    <div class="info">
+                        <h2>Mật khẩu (Password):</h2>
+                        <input type="password" id="MatKhau-l">
+                    </div>
+                    <button id="sign-in" type="submit" onclick="kiemtra()">Đăng Nhập</button>
+                </form>
+            <div id="sign-up">
+                Bạn chưa có tài khoản?<a href="#" onclick="open_register()"> Đăng ký</a>
+            </div>
+        </div>
+    
+        <div id="register">
+            <button id="close" onclick="hide_register()">
+                <i class="fa fa-times" style="font-size:40px;"></i>
+            </button>
+            <h1>Đăng ký</h1>
+            <form id="register-form" onsubmit="register()">
+                <div id="step1">
+                    <div class="info">
+                        <h2>Họ và tên:</h2>
+                        <input type="text" id="HoTen" required>
+                    </div>
+                    <div class="info">
+                        <h2>Ngày sinh:</h2>
+                        <input type="date" id="NgaySinh" min="1900-01-01" max="2023-06-01" required>   
+                    </div>
+                    <div class="info">
+                        <h2>Giới tính:</h2> 
+                        <select id="GioiTinh" style="border-radius: 20px; padding: 5px 30px; width: 20%;border: #dddfe2 2px solid; margin: 10px 0px 10px 3%;" required>
+                            <option value="Khác">Khác</option>
+                            <option value="Nam">Nam</option>
+                            <option value="Nữ">Nữ</option>
+                        </select>
+                    </div>
+                    <div class="info">
+                        <h2>Số điện thoại (tùy chọn): </h2>
+                        <input type="tel" id="SDT" pattern="[0]{1}[0-9]{9}">
+                    </div>
+                    <div class="info">
+                        <h2>Email (tùy chọn): </h2> 
+                        <input type="email" id="Email">
+                    </div>
+                    <button class="sign-up" type="button" onclick="nextstep()">Tiếp tục</button>
+                </div>
+    
+                <div id="step2">
+                    <button id="goback" type="button" onclick="prevstep()">
+                        <i class="fa fa-arrow-left" style="font-size:40px;"></i>
+                    </button>
+                    <div class="info">
+                        <h2>Tên đăng nhập (Username):</h2>
+                        <input type="text" id="TenDangNhap-r" required>
+                    </div>
+                    <div class="info">
+                        <h2>Mật khẩu (Password):</h2>
+                        <input type="password" id="MatKhau-r" required>
+                    </div>
+                    <button class="sign-up" type="submit">Đăng Ký</button>
+                </div>
+            </form>
+            <div id="sign-in">
+                Bạn đã có tài khoản?<a href="#" onclick="showlogin()"> Đăng nhập</a>
+            </div>
+        </div>
+        
+        <div id="gotop">
+            <a href="#"><i class='fa fa-arrow-up'style='font-size:20px; color: white;'></i></a>
+        </div>
+
+        <div id="test-info">
+            <h2>Bài đo tự đánh giá trầm cảm PQH-9</h2><input type="text" id="BaiTest" value="PQH-9">
+            <p>
+                Thang đo trầm cảm PQH-9 (Patient Questionare Health - 9) do bác sỹ Spitzer, Williams và Kroenke thiết kế để sàng lọc và theo dõi đáp ứng điều trị trầm cảm. Đối với điểm số sau khi làm bộ câu hỏi PHQ-9 trên 10 có độ nhạy và độ đặc hiệu lên tới 88% với bệnh trầm cảm ở mức độ nặng.
+            </p> <br>
+            <p>
+                PHQ-9 hoạt động dựa trên các cảm xúc, hoạt động trong 2 tuần gần nhất bằng các câu trả lời có sẵn.
+            </p> <br>
+            <p>
+                PHQ-9 được sử dụng như một công cụ sàng lọc hỗ trợ các bác sĩ chẩn đoán bệnh trầm cảm, đánh giá các triệu chứng và theo dõi mức độ nghiêm trọng của bệnh.
+            </p> <br>
+            <p>
+                Đối tượng: dùng được với nhiều đối tượng khác nhau
+            </p>
+            <input type="button" id="test-start" value="Làm bài test online" onclick="hienBaiTest()">
+        </div>
+
+        <form action="" id="test-form" onsubmit="updateLichSu()">
+            <div class="test">
+                <div class="question">
+                    1. Ít hứng thú hoặc là không có niềm vui thích làm việc gì 
+                </div>
+                <div class="answer">
+                    <label for="1a">
+                        <input type="radio" name="diemcau1" id="1a" value="0">Không lần nào cả
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="1b">
+                        <input type="radio" name="diemcau1" id="1b" value="1">Một vài ngày
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="1c">
+                        <input type="radio" name="diemcau1" id="1c" value="2">Nhiều hơn phân nữa số thời gian
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="1d">
+                        <input type="radio" name="diemcau1" id="1d" value="3" checked>Gần như mỗi ngày
+                    </label>
+                </div>
+            </div>
+
+            <div class="test">
+                <div class="question">
+                    2. Cảm thấy chán nản kiệt sức, trầm cảm, hoặc tuyệt vọng
+                </div>
+                <div class="answer">
+                    <label for="2a">
+                        <input type="radio" name="diemcau2" id="2a" value="0">Không lần nào cả
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="2b">
+                        <input type="radio" name="diemcau2" id="2b" value="1">Một vài ngày
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="2c">
+                        <input type="radio" name="diemcau2" id="2c" value="2">Nhiều hơn phân nữa số thời gian
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="2d">
+                        <input type="radio" name="diemcau2" id="2d" value="3" checked>Gần như mỗi ngày
+                    </label>
+                </div>
+            </div>
+
+            <div class="test">
+                <div class="question">
+                    3. Khó ngủ, ngủ không lâu hoặc ngủ quá nhiều
+                </div>
+                <div class="answer">
+                    <label for="3a">
+                        <input type="radio" name="diemcau3" id="3a" value="0">Không lần nào cả
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="3b">
+                        <input type="radio" name="diemcau3" id="3b" value="1">Một vài ngày
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="3c">
+                        <input type="radio" name="diemcau3" id="3c" value="2">Nhiều hơn phân nữa số thời gian
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="3d">
+                        <input type="radio" name="diemcau3" id="3d" value="3" checked>Gần như mỗi ngày
+                    </label>
+                </div>
+            </div>
+
+            <div class="test">
+                <div class="question">
+                    4. Cảm thấy mệt mỏi hoặc kém năng lực họat động 
+                </div>
+                <div class="answer">
+                    <label for="4a">
+                        <input type="radio" name="diemcau4" id="4a" value="0">Không lần nào cả
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="4b">
+                        <input type="radio" name="diemcau4" id="4b" value="1">Một vài ngày
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="4c">
+                        <input type="radio" name="diemcau4" id="4c" value="2">Nhiều hơn phân nữa số thời gian
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="4d">
+                        <input type="radio" name="diemcau4" id="4d" value="3" checked>Gần như mỗi ngày
+                    </label>
+                </div>
+            </div>
+
+            <div class="test">
+                <div class="question">
+                    5. Ăn kém ngon hoặc ăn quá nhiều 
+                </div>
+                <div class="answer">
+                    <label for="5a">
+                        <input type="radio" name="diemcau5" id="5a" value="0">Không lần nào cả
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="5b">
+                        <input type="radio" name="diemcau5" id="5b" value="1">Một vài ngày
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="5c">
+                        <input type="radio" name="diemcau5" id="5c" value="2">Nhiều hơn phân nữa số thời gian
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="5d">
+                        <input type="radio" name="diemcau5" id="5d" value="3" checked>Gần như mỗi ngày
+                    </label>
+                </div>
+            </div>
+
+            <div class="test">
+                <div class="question">
+                    6. Cảm thấy mình tệ, cho rằng mình là người thất bại hoặc đã làm cho chính mình hay gia đình thất vọng 
+                </div>
+                <div class="answer">
+                    <label for="6a">
+                        <input type="radio" name="diemcau6" id="6a" value="0">Không lần nào cả
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="6b">
+                        <input type="radio" name="diemcau6" id="6b" value="1">Một vài ngày
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="6c">
+                        <input type="radio" name="diemcau6" id="6c" value="2">Nhiều hơn phân nữa số thời gian
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="6d">
+                        <input type="radio" name="diemcau6" id="6d" value="3" checked>Gần như mỗi ngày
+                    </label>
+                </div>
+            </div>
+
+            <div class="test">
+                <div class="question">
+                    7. Khó tập trung làm việc gì, ví dụ như là đọc báo hay xem tivi 
+                </div>
+                <div class="answer">
+                    <label for="7a">
+                        <input type="radio" name="diemcau7" id="7a" value="0">Không lần nào cả
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="7b">
+                        <input type="radio" name="diemcau7" id="7b" value="1">Một vài ngày
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="7c">
+                        <input type="radio" name="diemcau7" id="7c" value="2">Nhiều hơn phân nữa số thời gian
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="7d">
+                        <input type="radio" name="diemcau7" id="7d" value="3" checked>Gần như mỗi ngày
+                    </label>
+                </div>
+            </div>
+
+            <div class="test">
+                <div class="question">
+                    8. Đi đứng hoặc nói năng chậm chạp đến nổi mọi người lưu ý. Hoặc ngược lại quá bồn chồn, đứng ngồi không yên cho nên bạn đã đi quanh quẩn nhiều hơn bình thường 
+                </div>
+                <div class="answer">
+                    <label for="8a">
+                        <input type="radio" name="diemcau8" id="8a" value="0">Không lần nào cả
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="8b">
+                        <input type="radio" name="diemcau8" id="8b" value="1">Một vài ngày
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="8c">
+                        <input type="radio" name="diemcau8" id="8c" value="2">Nhiều hơn phân nữa số thời gian
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="8d">
+                        <input type="radio" name="diemcau8" id="8d" value="3" checked>Gần như mỗi ngày
+                    </label>
+                </div>
+            </div>
+
+            <div class="test">
+                <div class="question">
+                    9. Có ý nghĩ làm điều gì đó gây đau đớn cho bản thân hoặc nghĩ rằng thà mình chết đi cho rồi 
+                </div>
+                <div class="answer">
+                    <label for="9a">
+                        <input type="radio" name="diemcau9" id="9a" value="0">Không lần nào cả
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="9b">
+                        <input type="radio" name="diemcau9" id="9b" value="1">Một vài ngày
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="9c">
+                        <input type="radio" name="diemcau9" id="9c" value="2">Nhiều hơn phân nữa số thời gian
+                    </label>
+                </div>
+                <div class="answer">
+                    <label for="9d">
+                        <input type="radio" name="diemcau9" id="9d" value="3" checked>Gần như mỗi ngày
+                    </label>
+                </div>
+            </div>
+            
+            <div id="error">
+                <p>Bạn chỉ mới làm </p>
+                <p id="socautraloi"></p> 
+                <p>trên tổng số </p>
+                <p id="socauhoi"></p>
+                <p> câu hỏi!</p>
+            </div>
+   
+            <input id="xemKetQua" type="button" onclick="ketqua()" value="Xem kết quả"/>
+        </form>
+
+        <div id="result">
+            <a href="./phq-9.html"><input type="button" id="back" value="Quay lai trang thông tin"></a>
+            <p id="ID-result"></p>
+            <div id="TinhTrang"></div>
+            <div id="DeNghi"></div>
+        </div>
+        <script src="../chucnang.js"></script>
+</body>
+</html>
